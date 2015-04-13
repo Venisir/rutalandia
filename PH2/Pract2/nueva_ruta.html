@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+	<link rel="stylesheet" type="text/css" href="style.css" title="Estilo principal" />
+	<link type="text/css" rel="stylesheet" href="fontello/css/iconset.css" />
+	<link href='http://fonts.googleapis.com/css?family=Indie+Flower' rel='stylesheet' type='text/css'>
+
+<link rel="shortcut icon" href="img/favicon.ico">
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Nueva ruta - Rutalandia</title>
+</head>
+<body>
+
+	<nav>
+		<ul class="navWrapper1">
+			<li><a href="index.html"><i class="icon-home"></i>Inicio</a></li>
+			<li><a href="rutas.html"><i class="icon-bicycle"></i> Rutas</a></li>
+			<li><a href="nueva_ruta.html"><i class="icon-list-add"></i>Nueva ruta</a></li>
+			<li><a href="registro.html"><i class="icon-plug"></i>Registro</a></li>
+			<li><a href="login.html"><i class="icon-login"></i>Login</a></li>
+			<li><a href="logout.html"><i class="icon-logout"></i>Logout</a></li>
+		</ul>
+
+		<ul class="navWrapper2">
+			<li><a href="index.html"><i class="icon-home"></i></a></li>
+			<li><a href="rutas.html"><i class="icon-bicycle"></i></a></li>
+			<li><a href="nueva_ruta.html"><i class="icon-list-add"></i></a></li>
+			<li><a href="registro.html"><i class="icon-plug"></i></a></li>
+			<li><a href="login.html"><i class="icon-login"></i></a></li>
+			<li><a href="logout.html"><i class="icon-logout"></i></a></li>
+		</ul>
+	</nav>
+
+	<header>
+		<br />
+		<br />
+		<br />
+		<div class="cabecera">
+            <img class="logo" src="img/Logo.png" alt="">
+            <h1><a href="index.html">Rutalandia</a></h1>
+        </div>
+	</header>
+
+		<div class="contenido">
+
+		<!--                             CONTENIDO                                  -->
+
+
+	    <form action="#" method="post" enctype="multipart/form-data" >
+
+			<h2>Nueva Ruta</h2>
+
+			Fecha: <br><input required type="date" name="fecha" id="fecha" title="Se necesita una fecha para la ruta." autofocus >
+			<br /><br />
+
+			Título: <br><input required type="text" name="titulo" id="titulo" placeholder="Título de la salida" maxlength="50" title="Introduce el título de la salida." >
+			<br /><br />
+
+			Recorrido: <br><textarea  name="recorrido" id="recorrido" placeholder="Recorrido de la ruta" title="Explica el recorrido de la ruta."></textarea>
+			<br /><br />
+
+			Descripción: <br><textarea name="descripcion" id="descripcion" placeholder="Descripción de la ruta" title="Describe la ruta."></textarea>
+			<br /><br />
+
+			Distancia: <br><input required type="number" min="0" max="50" step="0.01" value="10" name="distancia" id="distancia" title="Introduce la distancia de la ruta." >Km
+			<br /> <br />
+
+			Dificultad: 
+			<div class="starRate">
+			<ul>
+			<li><a href="#5"><span>Sólo para expertos</span></a></li>
+			<li><a href="#4"><span>Se requiere experiencia</span></a></li>
+			<li><a href="#3"><span>Para Iniciados</span><b></b></a></li>
+			<li><a href="#2"><span>Es bastante fácil</span></a></li>
+			<li><a href="#1"><span>Cualquiera podría</span></a></li>
+			</ul>
+			</div>
+
+			<script type="text/javascript">
+			function muestrafoto(event) {
+			  var selectedFile = event.target.files[0];
+			  var reader = new FileReader();
+
+			  var imagelist = document.images;
+
+			  var imgtag = imagelist[imagelist.length-1];
+			  imgtag.title = selectedFile.name;
+
+			  reader.onload = function(event) {
+			  	imgtag.src = event.target.result;
+			  };
+
+			  reader.readAsDataURL(selectedFile);
+			}
+
+			function masfoto() {
+				    var newimg = document.createElement("IMG");
+				    newimg.setAttribute("id", "mifoto");
+				    newimg.setAttribute("src", "img/foto1.jpg");
+				    newimg.setAttribute("style", "max-height: 400px; max-width: 95%");
+				    document.getElementById("listafotos").appendChild(newimg);
+				    var br = document.createElement("BR");
+				    document.getElementById("listafotos").appendChild(br);
+				    var ta = document.createElement("TEXTAREA");
+				    ta.setAttribute("id", "midescrip");
+				    ta.setAttribute("placeholder", "Descripción de la foto");
+				    ta.setAttribute("title", "Describe la foto");
+				    document.getElementById("listafotos").appendChild(ta);
+				    var br = document.createElement("BR");
+				    document.getElementById("listafotos").appendChild(br);
+				    var br = document.createElement("BR");
+				    document.getElementById("listafotos").appendChild(br);
+			}
+			</script>
+
+			<div id="listafotos">
+			</div>
+
+			<script type="text/javascript">
+				masfoto();
+			</script>
+
+			Elige una foto: <input type="file" name="imagen" id="imagen" onchange="muestrafoto(event)">
+
+			<br />
+
+			<button type="button" onclick="masfoto()">Añadir más fotos</button>
+
+			<button class="submit" type="submit">Enviar</button>
+
+		</form>
+		
+	</div>
+	
+	<footer>
+	    <p><a href="acerca.html">Acerca</a></p>
+	</footer>
+	
+</body>
+</html>

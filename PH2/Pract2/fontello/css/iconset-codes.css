@@ -1,0 +1,7 @@
+
+.icon-home:before { content: '\e800'; } /* '' */
+.icon-bicycle:before { content: '\e801'; } /* '' */
+.icon-plug:before { content: '\e802'; } /* '' */
+.icon-login:before { content: '\e803'; } /* '' */
+.icon-logout:before { content: '\e804'; } /* '' */
+.icon-list-add:before { content: '\e805'; } /* '' */

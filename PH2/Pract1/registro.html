@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+	<link rel="stylesheet" type="text/css" href="style.css" title="Estilo principal" />
+	<link type="text/css" rel="stylesheet" href="fontello/css/iconset.css" />
+	<link href='http://fonts.googleapis.com/css?family=Indie+Flower' rel='stylesheet' type='text/css'>
+
+<link rel="shortcut icon" href="img/favicon.ico">
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Registro - Rutalandia</title>
+</head>
+<body>
+
+	<nav>
+		<ul class="navWrapper1">
+			<li><a href="index.html"><i class="icon-home"></i>Inicio</a></li>
+			<li><a href="rutas.html"><i class="icon-bicycle"></i> Rutas</a></li>
+			<li><a href="nueva_ruta.html"><i class="icon-list-add"></i>Nueva ruta</a></li>
+			<li><a href="registro.html"><i class="icon-plug"></i>Registro</a></li>
+			<li><a href="login.html"><i class="icon-login"></i>Login</a></li>
+			<li><a href="logout.html"><i class="icon-logout"></i>Logout</a></li>
+		</ul>
+
+		<ul class="navWrapper2">
+			<li><a href="index.html"><i class="icon-home"></i></a></li>
+			<li><a href="rutas.html"><i class="icon-bicycle"></i></a></li>
+			<li><a href="nueva_ruta.html"><i class="icon-list-add"></i></a></li>
+			<li><a href="registro.html"><i class="icon-plug"></i></a></li>
+			<li><a href="login.html"><i class="icon-login"></i></a></li>
+			<li><a href="logout.html"><i class="icon-logout"></i></a></li>
+		</ul>
+	</nav>
+
+	<header>
+		<br />
+		<br />
+		<br />
+		<div class="cabecera">
+            <img class="logo" src="img/Logo.png" alt="">
+            <h1><a href="index.html">Rutalandia</a></h1>
+        </div>
+	</header>
+
+		<div class="contenido">
+
+		<!--CONTENIDO-->
+		
+		<form action="#" method="post" enctype="multipart/form-data" >
+
+			<h2>Registrarse</h2>
+
+			Nombre de usuario: <br><input required type="text" name="nombreUsuario" id="nombreUsuario" placeholder="Usuario" required pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{2,20}$" title="Se necesita un nombre de usuario" autofocus >
+			<br /><br />
+
+			Contraseña: <br><input type="password" name="password1" id="password1" placeholder="Contraseña" required pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" title="Introduce una contraseña válida." >
+			<br /><br />
+
+			Verificar contraseña: <br><input type="password" name="password2" id="password2" placeholder="Contraseña" required pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" title="Introduce una contraseña válida.">
+			<br /><br />
+
+			Nombre Completo: <br><input required type="text" name="nombre_completo" id="nombre_completo" placeholder="Nombre Completo" title="Introduce tu nombre completo." >
+			<br /><br />
+
+			Email: <br><input required type="text" name="email" id="email" placeholder="Email" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$" title="Introduce tu correo electrónico.">
+			<br /><br />
+
+			<button class="submit" type="submit">Enviar</button>
+
+		</form>
+
+
+	</div>
+	
+	<footer>		
+		<p>
+		Contacto: spam@yahoo.es<br />
+		Rutalandia © 2015
+		</p>
+	    <p><a href="acerca.html">Acerca</a></p>
+	</footer>
+	
+</body>
+</html>
