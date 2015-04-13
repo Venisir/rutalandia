@@ -52,19 +52,19 @@
 
 			<h2>Registrarse</h2>
 
-			Nombre de usuario: <br><input required type="text" name="nombreUsuario" id="nombreUsuario" placeholder="Usuario" required pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{2,20}$" title="Se necesita un nombre de usuario" autofocus >
+			<input required type="text" name="nombreUsuario" id="nombreUsuario" placeholder="Nombre de usuario" required pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{2,20}$" title="Se necesita un nombre de usuario" autofocus >
 			<br /><br />
 
-			Contraseña: <br><input type="password" name="password1" id="password1" placeholder="Contraseña" required pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" title="Introduce una contraseña válida." >
+			<input type="password" name="password1" id="password1" placeholder="Contraseña" required pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" title="Introduce una contraseña válida." >
 			<br /><br />
 
-			Verificar contraseña: <br><input type="password" name="password2" id="password2" placeholder="Contraseña" required pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" title="Introduce una contraseña válida.">
+			<input type="password" name="password2" id="password2" placeholder="Verificar contraseña" required pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" title="Introduce una contraseña válida.">
 			<br /><br />
 
-			Nombre Completo: <br><input required type="text" name="nombre_completo" id="nombre_completo" placeholder="Nombre Completo" title="Introduce tu nombre completo." >
+			<input required type="text" name="nombre_completo" id="nombre_completo" placeholder="Nombre Completo" title="Introduce tu nombre completo." >
 			<br /><br />
 
-			Email: <br><input required type="text" name="email" id="email" placeholder="Email" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$" title="Introduce tu correo electrónico.">
+			<input required type="email" name="email" id="email" placeholder="Email" title="Introduce tu correo electrónico.">
 			<br /><br />
 
 			<button class="submit" type="submit">Enviar</button>

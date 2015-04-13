@@ -7,6 +7,10 @@ body {
 	font-family: "Verdana";
 }
 
+img {
+	max-width: 99%;
+}
+
 a {
 	text-decoration: none;
 	color: #FFFFFF;
