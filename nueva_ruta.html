@@ -6,7 +6,7 @@
 	<link type="text/css" rel="stylesheet" href="fontello/css/iconset.css" />
 	<link href='http://fonts.googleapis.com/css?family=Indie+Flower' rel='stylesheet' type='text/css'>
 
-<link rel="shortcut icon" href="img/favicon.ico">
+	<link rel="shortcut icon" href="img/favicon.ico">
 
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -68,16 +68,18 @@
 			Distancia: <br><input required type="number" min="0" max="50" step="0.01" value="10" name="distancia" id="distancia" title="Introduce la distancia de la ruta." >Km
 			<br /> <br />
 
-			Dificultad: 
-			<div class="starRate">
-			<ul>
-			<li><a href="#5"><span>Sólo para expertos</span></a></li>
-			<li><a href="#4"><span>Se requiere experiencia</span></a></li>
-			<li><a href="#3"><span>Para Iniciados</span><b></b></a></li>
-			<li><a href="#2"><span>Es bastante fácil</span></a></li>
-			<li><a href="#1"><span>Cualquiera podría</span></a></li>
-			</ul>
+			Dificultad:
+
+
+			<div class="valorar">
+				<a href="#" data-value="1" title="Votar con 1 estrellas">&#9733;</a>
+				<a href="#" data-value="2" title="Votar con 2 estrellas">&#9733;</a>
+				<a href="#" data-value="3" title="Votar con 3 estrellas">&#9733;</a>
+				<a href="#" data-value="4" title="Votar con 4 estrellas">&#9733;</a>
+				<a href="#" data-value="5" title="Votar con 5 estrellas">&#9733;</a>
 			</div>
+			<br />
+			<br />
 
 			<script type="text/javascript">
 			function muestrafoto(event) {

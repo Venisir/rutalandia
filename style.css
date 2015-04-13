@@ -293,16 +293,33 @@ nav{
 }
 
 /* Sistema de valoracion de estrellas */
-.starRate {position:relative; margin:10px; overflow:hidden;}
-.starRate ul {width:160px; margin:0; padding:0;}
-.starRate li {display:inline; list-style:none; margin:0px; font-size:15px;}
-.starRate a, .starRate b {background:url(img/star_rate.gif) left top repeat-x;}
-.starRate a {float:right; margin:0 80px 0 -144px; width:80px; height:16px; /*background-position:left 16px;*/ text-decoration:none;}
-.starRate a:hover {background-position:left -32px;}
-.starRate b {position:absolute; z-index:-1; width:80px; height:16px; background-position:left -16px;}
-.starRate div b {left:0px; bottom:0px; background-position:left top;}
-.starRate a span {position:absolute; left:-300px;}
-.starRate a:hover span {left:90px; width:100%;}
+
+.valorar {
+	font-size: 0;
+	display: inline-block;
+}
+.valorar a {
+	text-decoration: none;
+	display: inline-block;
+	/* Volver a dar tamaño al texto */
+	font-size: 32px;
+	font-size: 1.5rem;
+	
+	color: #888;
+}
+
+.valorar:hover a {
+	color: rgb(242, 232, 42);
+}
+/*
+ * El selector de hijo, es necesario para aumentar la especifidad
+ */
+.valorar > a:hover ~ a {
+	color: #888;
+}
+
+
+
 
 /*Resoluciones*/
 
