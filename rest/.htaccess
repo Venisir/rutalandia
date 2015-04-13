@@ -1,6 +1,6 @@
 Options +FollowSymLinks
 RewriteEngine On
-RewriteBase C:\xampp\htdocs\rutalandia\rest
+RewriteBase /rutalandia/rest/
 
 # Con el valor 307 en la regla de abajo se redirigen todas las
 # peticiones, tanto las peticiones GET y POST

@@ -3,10 +3,10 @@
 
 $METODO = $_SERVER['REQUEST_METHOD'];
 // EL METODO DEBE SER POST. SI NO LO ES, NO SE HACE NADA.
+
 if($METODO<>'POST') exit();
 // PETICIONES POST ADMITIDAS:
 //   rest/registro/
-
 // =================================================================================
 // =================================================================================
 // INCLUSION DE LA CONEXION A LA BD

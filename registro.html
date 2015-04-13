@@ -6,7 +6,9 @@
 	<link type="text/css" rel="stylesheet" href="fontello/css/iconset.css" />
 	<link href='http://fonts.googleapis.com/css?family=Indie+Flower' rel='stylesheet' type='text/css'>
 
-<link rel="shortcut icon" href="img/favicon.ico">
+	<link rel="shortcut icon" href="img/favicon.ico">
+
+	<script src="script.js"></script>
 
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -48,27 +50,27 @@
 
 		<!--CONTENIDO-->
 		
-		<form action="#" method="post" enctype="multipart/form-data" >
+		<form id="formRegistro" method="post" enctype="multipart/form-data" onsubmit="return enviarRegistro();">
 
 			<h2>Registrarse</h2>
 
-			<input required type="text" name="nombreUsuario" id="nombreUsuario" placeholder="Nombre de usuario" required pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{2,20}$" title="Se necesita un nombre de usuario" autofocus >
+			<input required type="text" name="usu" id="usu" placeholder="Nombre de usuario" required pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{2,20}$" title="Se necesita un nombre de usuario" autofocus >
 			<br /><br />
 
-			<input type="password" name="password1" id="password1" placeholder="Contraseña" required pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" title="Introduce una contraseña válida." >
+			<input type="password" name="pwd1" id="pwd1" placeholder="Contraseña" required pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" title="Introduce una contraseña válida." >
 			<br /><br />
 
-			<input type="password" name="password2" id="password2" placeholder="Verificar contraseña" required pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" title="Introduce una contraseña válida.">
+			<input type="password" name="pwd2" id="pwd2" placeholder="Verificar contraseña" required pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" title="Introduce una contraseña válida.">
 			<br /><br />
 
-			<input required type="text" name="nombre_completo" id="nombre_completo" placeholder="Nombre Completo" title="Introduce tu nombre completo." >
+			<input required type="text" name="nombre" id="nombre" placeholder="Nombre Completo" title="Introduce tu nombre completo." >
 			<br /><br />
 
 			<input required type="email" name="email" id="email" placeholder="Email" title="Introduce tu correo electrónico.">
 			<br /><br />
 
-			<button class="submit" type="submit">Enviar</button>
-
+			<input type="submit" value="Enviar">
+			
 		</form>
 
 

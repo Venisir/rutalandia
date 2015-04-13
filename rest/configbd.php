@@ -8,7 +8,7 @@ require_once('funciones.php');
 // CONFIGURACION DE ACCESO A LA BASE DE DATOS:
 // =================================================================================
 $_server   = "127.0.0.1";
-$_dataBase = "excursionismo";
+$_dataBase = "ph2";
 $_user     = "ph2";
 $_password = "ph2";
 // =================================================================================
