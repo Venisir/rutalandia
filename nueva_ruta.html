@@ -86,9 +86,20 @@
 			  var selectedFile = event.target.files[0];
 			  var reader = new FileReader();
 
+			  var inputs = document.getElementsByName("imagen");
 			  var imagelist = document.images;
 
-			  var imgtag = imagelist[imagelist.length-1];
+			  var id=imagelist.length-1;
+
+			  var arrayLength = inputs.length;
+			  
+			  for (var i = 0; i < arrayLength; i++) {
+				if (inputs[i]==event.target){
+					id=i+1;
+				}
+			  }
+
+			  var imgtag = imagelist[id];
 			  imgtag.title = selectedFile.name;
 
 			  reader.onload = function(event) {
@@ -115,6 +126,18 @@
 				    document.getElementById("listafotos").appendChild(br);
 				    var br = document.createElement("BR");
 				    document.getElementById("listafotos").appendChild(br);
+				    var elige = document.createTextNode("Elige una foto:");
+				    document.getElementById("listafotos").appendChild(elige);
+				    var imginput = document.createElement("INPUT");
+				    imginput.setAttribute("type", "file");
+				    imginput.setAttribute("name", "imagen");
+				    imginput.setAttribute("id", "imagen");
+				    imginput.setAttribute("onchange", "muestrafoto(event)")
+				    document.getElementById("listafotos").appendChild(imginput);
+				    var br = document.createElement("BR");
+				    document.getElementById("listafotos").appendChild(br);
+				    var br = document.createElement("BR");
+				    document.getElementById("listafotos").appendChild(br);
 			}
 			</script>
 
@@ -124,8 +147,6 @@
 			<script type="text/javascript">
 				masfoto();
 			</script>
-
-			Elige una foto: <input type="file" name="imagen" id="imagen" onchange="muestrafoto(event)">
 
 			<br />
 
