@@ -6,7 +6,9 @@
 	<link type="text/css" rel="stylesheet" href="fontello/css/iconset.css" />
 	<link href='http://fonts.googleapis.com/css?family=Indie+Flower' rel='stylesheet' type='text/css'>
 	
-<link rel="shortcut icon" href="img/favicon.ico">
+	<link rel="shortcut icon" href="img/favicon.ico">
+
+	<script src="script.js"></script>
 
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -48,16 +50,16 @@
 
 		<!--                             CONTENIDO                                  -->
 
-			<form action="#" method="post" >
+			<form id="formLogin" method="post" enctype="multipart/form-data" onsubmit="return enviarLogin();" >
+
 				<h3>Acceder</h3>
-				<p><input type="text" name="user" id="user" placeholder="Usuario" required pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{2,20}$" title="Se necesita un nombre de usuario" autofocus></p>
-				<p><input type="password" name="password" id="password" placeholder="Contraseña" required pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" title="Introduce una contraseña válida." ></p>
+				<p><input type="text" name="usu" id="usu" placeholder="Usuario" required pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{2,20}$" title="Se necesita un nombre de usuario" autofocus></p>
+				<p><input type="password" name="pwd" id="pwd" placeholder="Contraseña" required pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" title="Introduce una contraseña válida." ></p>
 
 				<p><input type="checkbox" name="recordarLogin" id="recordarLogin" /> Recordarme</p>
 
-				<button class="submit" type="submit">Enviar</button>
+				<input type="submit" value="Enviar">
 
-				<!--<input type="button" value="Enviar" onClick="enviar()" />-->
 			</form>
 
 

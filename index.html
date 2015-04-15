@@ -6,13 +6,19 @@
 	<link type="text/css" rel="stylesheet" href="fontello/css/iconset.css" />
 	<link href='http://fonts.googleapis.com/css?family=Indie+Flower' rel='stylesheet' type='text/css'>
 
-<link rel="shortcut icon" href="img/favicon.ico">
+	<link rel="shortcut icon" href="img/favicon.ico">
+
+	<script src="script.js"></script>
 
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<title>Inicio - Rutalandia</title>
 </head>
 <body>
+
+	<script>
+	ponerCabecera();
+	</script>
 
 	<nav>
 		<ul class="navWrapper1">
@@ -21,7 +27,7 @@
 			<li><a href="nueva_ruta.html"><i class="icon-list-add"></i>Nueva ruta</a></li>
 			<li><a href="registro.html"><i class="icon-plug"></i>Registro</a></li>
 			<li><a href="login.html"><i class="icon-login"></i>Login</a></li>
-			<li><a href="logout.html"><i class="icon-logout"></i>Logout</a></li>
+			<li><a href="javascript:cerrarSesion();"><i class="icon-logout"></i>Logout</a></li>
 		</ul>
 
 		<ul class="navWrapper2">
@@ -30,7 +36,7 @@
 			<li><a href="nueva_ruta.html"><i class="icon-list-add"></i></a></li>
 			<li><a href="registro.html"><i class="icon-plug"></i></a></li>
 			<li><a href="login.html"><i class="icon-login"></i></a></li>
-			<li><a href="logout.html"><i class="icon-logout"></i></a></li>
+			<li><a href="javascript:cerrarSesion();"><i class="icon-logout"></i></a></li>
 		</ul>
 	</nav>
 
@@ -46,10 +52,16 @@
 
 		<div class="contenido">
 
+
 		<!--CONTENIDO-->
 
 	    <h2>Inicio</h2>
 
+<form>
+<input type="button"
+onClick="comprobarSesion()"
+value="Activar Función"/>
+</form>
 		<p style="text-indent:5%;">Bienvenid@ a rutalandia, aquí podrás encontrar cientos de rutas de senderismo, montaña, bicicleta o nieve, descritas y documentadas por los propios usuarios.
 		Tú también puedes colaborar para que esta "enciclopedia de rutas" siga creciendo con nuevas descripciones, tracks, mapas, fotos, etc.</p>
 
