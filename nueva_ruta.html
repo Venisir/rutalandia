@@ -84,7 +84,15 @@
 			<script type="text/javascript">
 			function muestrafoto(event) {
 			  var selectedFile = event.target.files[0];
+			  if(selectedFile.size>500*1024){
+			  	borrarFoto(event);
+			  	masfoto();
+			  	alert("Error: Tamaño máximo de foto: 500KB")
+			  }
+			  else{
 			  var reader = new FileReader();
+
+
 
 			  var inputs = document.getElementsByName("imagen");
 			  var imagelist = document.images;
@@ -107,37 +115,59 @@
 			  };
 
 			  reader.readAsDataURL(selectedFile);
+			  }
+			}
+
+			function borrarFoto(event) {
+				var toDelete=document.getElementById(event.target.parentNode.id);
+				document.getElementById("listafotos").removeChild(toDelete);
 			}
 
 			function masfoto() {
+					var newdiv = document.createElement("DIV");
+					newdiv.setAttribute("name", "fotoUp");
+
+					var fotoN = document.getElementsByName("fotoUp").length;
+					newdiv.setAttribute("id", fotoN)
+
 				    var newimg = document.createElement("IMG");
 				    newimg.setAttribute("id", "mifoto");
-				    newimg.setAttribute("src", "img/foto1.jpg");
-				    newimg.setAttribute("style", "max-height: 400px; max-width: 95%");
-				    document.getElementById("listafotos").appendChild(newimg);
+				    //newimg.setAttribute("src", "img/foto1.jpg");
+				    newimg.setAttribute("style", "max-height: 400px; max-width: 95%; border:0");
+				    newdiv.appendChild(newimg);
 				    var br = document.createElement("BR");
-				    document.getElementById("listafotos").appendChild(br);
+				    newdiv.appendChild(br);
+				    var borraboton = document.createElement("BUTTON");
+				    borraboton.textContent="Borrar Foto";
+					borraboton.setAttribute("type", "button");
+					borraboton.setAttribute("onclick", "borrarFoto(event)");
+				    newdiv.appendChild(borraboton);
+				    var br = document.createElement("BR");
+				    newdiv.appendChild(br);
 				    var ta = document.createElement("TEXTAREA");
 				    ta.setAttribute("id", "midescrip");
 				    ta.setAttribute("placeholder", "Descripción de la foto");
 				    ta.setAttribute("title", "Describe la foto");
-				    document.getElementById("listafotos").appendChild(ta);
+				    newdiv.appendChild(ta);
 				    var br = document.createElement("BR");
-				    document.getElementById("listafotos").appendChild(br);
+				    newdiv.appendChild(br);
 				    var br = document.createElement("BR");
-				    document.getElementById("listafotos").appendChild(br);
+				    newdiv.appendChild(br);
 				    var elige = document.createTextNode("Elige una foto:");
-				    document.getElementById("listafotos").appendChild(elige);
+				    newdiv.appendChild(elige);
 				    var imginput = document.createElement("INPUT");
 				    imginput.setAttribute("type", "file");
 				    imginput.setAttribute("name", "imagen");
 				    imginput.setAttribute("id", "imagen");
 				    imginput.setAttribute("onchange", "muestrafoto(event)")
-				    document.getElementById("listafotos").appendChild(imginput);
+				    newdiv.appendChild(imginput);
 				    var br = document.createElement("BR");
-				    document.getElementById("listafotos").appendChild(br);
+				    newdiv.appendChild(br);
 				    var br = document.createElement("BR");
-				    document.getElementById("listafotos").appendChild(br);
+				    newdiv.appendChild(br);
+
+
+				    document.getElementById("listafotos").appendChild(newdiv);
 			}
 			</script>
 
