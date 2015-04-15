@@ -304,3 +304,117 @@ function enviarCambioDatos() {
     document.getElementById("formularioDatos").submit();
 }
 */
+
+// Funciones para nueva ruta
+function muestrafoto(event) {
+    var selectedFile = event.target.files[0];
+    if(selectedFile.size>500*1024){
+        borrarFoto(event);
+        var newDiv=masfoto();
+        p=newDiv.childNodes[1];
+        p.textContent="Error: Tamaño máximo de foto: 500KB";
+        //alert("Error: Tamaño máximo de foto: 500KB")
+    }
+    else{
+        var reader = new FileReader();
+        var inputs = document.getElementsByName("imagen");
+        var imagelist = document.images;
+        var id=imagelist.length-1;
+        var arrayLength = inputs.length;
+        
+        for (var i = 0; i < arrayLength; i++) {
+            if (inputs[i]==event.target){
+                id=i+1;
+            }
+        }
+        //Aqui se elimina el mensaje de error
+        var newDiv=document.getElementById(id-1);
+        p=newDiv.childNodes[1];
+        p.textContent="";
+        var imgtag = imagelist[id];
+        imgtag.title = selectedFile.name;
+
+        reader.onload = function(event) {
+          imgtag.src = event.target.result;
+        };
+
+        reader.readAsDataURL(selectedFile);
+    }
+}
+function borrarFoto(event) {
+    var toDelete=document.getElementById(event.target.parentNode.id);
+    document.getElementById("listafotos").removeChild(toDelete);
+    var arrayLength = document.getElementById("listafotos").childNodes.length;
+    for(var i = 0; i < arrayLength; i++){
+        var element = document.getElementById("listafotos").childNodes[i];
+        element.id=i-1;
+    }
+}
+function masfoto() {
+    var newdiv = document.createElement("DIV");
+    newdiv.setAttribute("name", "fotoUp");
+    var fotoN = document.getElementsByName("fotoUp").length;
+    newdiv.setAttribute("id", fotoN)
+    var newimg = document.createElement("IMG");
+    newimg.setAttribute("id", "mifoto");
+    //newimg.setAttribute("src", "img/foto1.jpg");
+    newimg.setAttribute("style", "max-height: 400px; max-width: 95%; border:0");
+    newdiv.appendChild(newimg);
+    var p = document.createElement("P");
+    p.setAttribute("id", "error");
+    newdiv.appendChild(p);
+    var borraboton = document.createElement("BUTTON");
+    borraboton.textContent="Borrar Foto";
+    borraboton.setAttribute("type", "button");
+    borraboton.setAttribute("onclick", "borrarFoto(event)");
+    newdiv.appendChild(borraboton);
+    var br = document.createElement("BR");
+    newdiv.appendChild(br);
+    var ta = document.createElement("TEXTAREA");
+    ta.setAttribute("id", "midescrip");
+    ta.setAttribute("placeholder", "Descripción de la foto");
+    ta.setAttribute("title", "Describe la foto");
+    newdiv.appendChild(ta);
+    var br = document.createElement("BR");
+    newdiv.appendChild(br);
+    var br = document.createElement("BR");
+    newdiv.appendChild(br);
+    var elige = document.createTextNode("Elige una foto:");
+    newdiv.appendChild(elige);
+    var imginput = document.createElement("INPUT");
+    imginput.setAttribute("type", "file");
+    imginput.setAttribute("name", "imagen");
+    imginput.setAttribute("id", "imagen");
+    imginput.setAttribute("onchange", "muestrafoto(event)")
+    newdiv.appendChild(imginput);
+    var br = document.createElement("BR");
+    newdiv.appendChild(br);
+    var br = document.createElement("BR");
+    newdiv.appendChild(br);
+    document.getElementById("listafotos").appendChild(newdiv);
+    return newdiv;
+}
+
+//Funciones para ruta
+function cargaRuta(ruta) {
+    
+    var xmlhttp=new XMLHttpRequest();
+    
+    var string="rest/ruta/"+ruta.toString();
+
+    xmlhttp.open("GET",string,true);
+    xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    xmlhttp.send();
+
+    xmlhttp.onreadystatechange=function()
+    {
+    if(xmlhttp.readyState==4 && xmlhttp.status==200)
+        {
+            //var res = xmlhttp.getResponseHeader('resultado');
+
+            var res = xmlhttp.responseText.split('"');
+            alert(res);
+        }
+    }
+    return false;
+}

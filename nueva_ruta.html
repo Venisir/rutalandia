@@ -8,6 +8,8 @@
 
 	<link rel="shortcut icon" href="img/favicon.ico">
 
+	<script src="script.js"></script>
+	
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<title>Nueva ruta - Rutalandia</title>
@@ -72,104 +74,14 @@
 
 
 			<div class="valorar">
-				<a href="#" data-value="1" title="Votar con 1 estrellas">&#9733;</a>
-				<a href="#" data-value="2" title="Votar con 2 estrellas">&#9733;</a>
-				<a href="#" data-value="3" title="Votar con 3 estrellas">&#9733;</a>
-				<a href="#" data-value="4" title="Votar con 4 estrellas">&#9733;</a>
-				<a href="#" data-value="5" title="Votar con 5 estrellas">&#9733;</a>
+				<a href="#1" data-value="1" title="Para todos los públicos">&#9733;</a>
+				<a href="#2" data-value="2" title="Fácil, pero no para cualquiera">&#9733;</a>
+				<a href="#3" data-value="3" title="Para iniciados">&#9733;</a>
+				<a href="#4" data-value="4" title="Se requiere experiencia">&#9733;</a>
+				<a href="#5" data-value="5" title="Sólo para los más expertos">&#9733;</a>
 			</div>
 			<br />
 			<br />
-
-			<script type="text/javascript">
-			function muestrafoto(event) {
-			  var selectedFile = event.target.files[0];
-			  if(selectedFile.size>500*1024){
-			  	borrarFoto(event);
-			  	masfoto();
-			  	alert("Error: Tamaño máximo de foto: 500KB")
-			  }
-			  else{
-			  var reader = new FileReader();
-
-
-
-			  var inputs = document.getElementsByName("imagen");
-			  var imagelist = document.images;
-
-			  var id=imagelist.length-1;
-
-			  var arrayLength = inputs.length;
-			  
-			  for (var i = 0; i < arrayLength; i++) {
-				if (inputs[i]==event.target){
-					id=i+1;
-				}
-			  }
-
-			  var imgtag = imagelist[id];
-			  imgtag.title = selectedFile.name;
-
-			  reader.onload = function(event) {
-			  	imgtag.src = event.target.result;
-			  };
-
-			  reader.readAsDataURL(selectedFile);
-			  }
-			}
-
-			function borrarFoto(event) {
-				var toDelete=document.getElementById(event.target.parentNode.id);
-				document.getElementById("listafotos").removeChild(toDelete);
-			}
-
-			function masfoto() {
-					var newdiv = document.createElement("DIV");
-					newdiv.setAttribute("name", "fotoUp");
-
-					var fotoN = document.getElementsByName("fotoUp").length;
-					newdiv.setAttribute("id", fotoN)
-
-				    var newimg = document.createElement("IMG");
-				    newimg.setAttribute("id", "mifoto");
-				    //newimg.setAttribute("src", "img/foto1.jpg");
-				    newimg.setAttribute("style", "max-height: 400px; max-width: 95%; border:0");
-				    newdiv.appendChild(newimg);
-				    var br = document.createElement("BR");
-				    newdiv.appendChild(br);
-				    var borraboton = document.createElement("BUTTON");
-				    borraboton.textContent="Borrar Foto";
-					borraboton.setAttribute("type", "button");
-					borraboton.setAttribute("onclick", "borrarFoto(event)");
-				    newdiv.appendChild(borraboton);
-				    var br = document.createElement("BR");
-				    newdiv.appendChild(br);
-				    var ta = document.createElement("TEXTAREA");
-				    ta.setAttribute("id", "midescrip");
-				    ta.setAttribute("placeholder", "Descripción de la foto");
-				    ta.setAttribute("title", "Describe la foto");
-				    newdiv.appendChild(ta);
-				    var br = document.createElement("BR");
-				    newdiv.appendChild(br);
-				    var br = document.createElement("BR");
-				    newdiv.appendChild(br);
-				    var elige = document.createTextNode("Elige una foto:");
-				    newdiv.appendChild(elige);
-				    var imginput = document.createElement("INPUT");
-				    imginput.setAttribute("type", "file");
-				    imginput.setAttribute("name", "imagen");
-				    imginput.setAttribute("id", "imagen");
-				    imginput.setAttribute("onchange", "muestrafoto(event)")
-				    newdiv.appendChild(imginput);
-				    var br = document.createElement("BR");
-				    newdiv.appendChild(br);
-				    var br = document.createElement("BR");
-				    newdiv.appendChild(br);
-
-
-				    document.getElementById("listafotos").appendChild(newdiv);
-			}
-			</script>
 
 			<div id="listafotos">
 			</div>
