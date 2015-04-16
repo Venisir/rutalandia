@@ -43,6 +43,13 @@ function enviarRegistro() {
             var res = window.JSON.parse(xmlhttp.responseText);
 
             if(res.resultado.localeCompare("ok")==0){
+                //alert("Te has registrado");
+
+                /*
+                document.getElementById("contenedor").style.zIndex = "999999";
+                document.getElementById("contenedor").style.visibility = "visible";
+                document.body.style.overflow = "hidden";
+                */
                 alert("Te has registrado");
 
                 location.href="/rutalandia/login.html";
