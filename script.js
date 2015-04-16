@@ -1,46 +1,23 @@
-/*
-function enviar() {
+function ponerCabecera(){
+    
+    if(window.localStorage){
+        //alert("Va");
+        if(sessionStorage.getItem("login")){ // Si hay datos en loginStorage ...
 
-    var usuario = document.getElementById("user").value;
-    var contrasenya = document.getElementById("password").value;
-    var recordarLogin = document.getElementById("recordarLogin").value;
+            document.getElementById("navWrapper1").innerHTML = '<li><a href="index.html"><i class="icon-home"></i>Inicio</a></li><li><a href="rutas.html"><i class="icon-bicycle"></i> Rutas</a></li><li><a href="nueva_ruta.html"><i class="icon-list-add"></i>Nueva ruta</a></li><li><a href="javascript:cerrarSesion();"><i class="icon-logout"></i>Logout</a></li>';
 
-    usuario = usuario.replace(/\s/g,'');
-    contrasenya = contrasenya.replace(/\s/g,'');
+            document.getElementById("navWrapper2").innerHTML = '<li><a href="index.html"><i class="icon-home"></i></a></li><li><a href="rutas.html"><i class="icon-bicycle"></i></a></li><li><a href="nueva_ruta.html"><i class="icon-list-add"></i></a></li><li><a href="javascript:cerrarSesion();"><i class="icon-logout"></i></a></li>';
 
-    if(usuario==""){
-        alert("No has introducido el usuario");
-        return;
+        }else{
+
+            document.getElementById("navWrapper1").innerHTML = '<li><a href="index.html"><i class="icon-home"></i>Inicio</a></li><li><a href="rutas.html"><i class="icon-bicycle"></i> Rutas</a></li><li><a href="registro.html"><i class="icon-plug"></i>Registro</a></li><li><a href="login.html"><i class="icon-login"></i>Login</a></li>';
+
+            document.getElementById("navWrapper2").innerHTML = '<li><a href="index.html"><i class="icon-home"></i></a></li><li><a href="rutas.html"><i class="icon-bicycle"></i></a></li><li><a href="registro.html"><i class="icon-plug"></i></a></li><li><a href="login.html"><i class="icon-login"></i></a></li>';
+
+        }
     }
-
-    if(contrasenya==""){
-        alert("No has introducido la contraseña");
-        return;
-    }
-    document.getElementById("formularioLogin").submit();
 }
 
-function abrirDesplegable() {
-
-    if(document.getElementById("formularioLogin").style.display == "block"){
-        document.getElementById("formularioLogin").style.display = "none";
-    }else{
-        document.getElementById("formularioLogin").style.display = "block";
-    }   
-}
-
-function cerrarDesplegable() {
-    document.getElementById("formularioLogin").style.display = "none";
-}
-
-function salir() {
-    document.getElementById("formularioLogin").submit();
-}
-
-function verPerfil() {
-    document.getElementById("formularioLogin").submit();
-}
-*/
 function enviarRegistro() {
     
     var xmlhttp;
@@ -123,6 +100,7 @@ function enviarLogin() {
     }
     return false;
 }
+
 /*
 function comprobar(){
     if(window.localStorage){ // Se comprueba si hay soporte para Web Storage
@@ -134,6 +112,8 @@ function comprobar(){
     }
 }
 */
+
+
 /*
 function rellenar(){ // Se comprueba si hay soporte para Web Storage
     if(window.localStorage){
@@ -145,32 +125,13 @@ function rellenar(){ // Se comprueba si hay soporte para Web Storage
     }
 }
 */
+
 function comprobarSesion(){
     if(window.localStorage){
         if(sessionStorage.getItem("login")){ // Si hay datos en loginStorage ...
             alert("Estas logueado como " + sessionStorage.getItem("login") + " con clave de sesión " + sessionStorage.getItem("pass"));
         }else{
             alert("No estas logueado!");
-        }
-    }
-}
-
-function ponerCabecera(){
-    
-    if(window.localStorage){
-        //alert("Va");
-        if(sessionStorage.getItem("login")){ // Si hay datos en loginStorage ...
-
-            document.getElementById("navWrapper1").innerHTML = '<li><a href="index.html"><i class="icon-home"></i>Inicio</a></li><li><a href="rutas.html"><i class="icon-bicycle"></i> Rutas</a></li><li><a href="nueva_ruta.html"><i class="icon-list-add"></i>Nueva ruta</a></li><li><a href="javascript:cerrarSesion();"><i class="icon-logout"></i>Logout</a></li>';
-
-            document.getElementById("navWrapper2").innerHTML = '<li><a href="index.html"><i class="icon-home"></i></a></li><li><a href="rutas.html"><i class="icon-bicycle"></i></a></li><li><a href="nueva_ruta.html"><i class="icon-list-add"></i></a></li><li><a href="javascript:cerrarSesion();"><i class="icon-logout"></i></a></li>';
-
-        }else{
-
-            document.getElementById("navWrapper1").innerHTML = '<li><a href="index.html"><i class="icon-home"></i>Inicio</a></li><li><a href="rutas.html"><i class="icon-bicycle"></i> Rutas</a></li><li><a href="registro.html"><i class="icon-plug"></i>Registro</a></li><li><a href="login.html"><i class="icon-login"></i>Login</a></li>';
-
-            document.getElementById("navWrapper2").innerHTML = '<li><a href="index.html"><i class="icon-home"></i></a></li><li><a href="rutas.html"><i class="icon-bicycle"></i></a></li><li><a href="registro.html"><i class="icon-plug"></i></a></li><li><a href="login.html"><i class="icon-login"></i></a></li>';
-
         }
     }
 }
@@ -182,7 +143,6 @@ function cerrarSesion(){ // Se comprueba si hay soporte para Web Storage
             sessionStorage.removeItem("login");
             sessionStorage.removeItem("pass");
             location.href="/rutalandia/index.html";
-
         }else{
             alert("¡No puedes cerrar sesión!");
         }
@@ -214,23 +174,4 @@ function redireccionaSiNoEstasLogueado(){
         }
     }
 }
-/*
-function aviso() {
 
-    var r = confirm("¡ATENCIÓN!\nSe perderán todos los datos no guardados. ¿Salir?");
-    if (r == true) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-function avisoBorrado() {
-
-    var r = confirm("¡ATENCIÓN!\nTu cuenta será eliminada PERMANENTEMENTE. \n\n¿Estás seguro?");
-    if (r == true) {
-        return true;
-    } else {
-        return false;
-    }
-}
