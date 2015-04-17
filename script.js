@@ -41,6 +41,7 @@ function verPerfil() {
     document.getElementById("formularioLogin").submit();
 }
 */
+
 function enviarRegistro() {
     
     var xmlhttp;
@@ -470,6 +471,7 @@ function muestrafoto(event) {
         reader.readAsDataURL(selectedFile);
     }
 }
+
 function borrarFoto(event) {
     var toDelete=document.getElementById(event.target.parentNode.id);
     document.getElementById("listafotos").removeChild(toDelete);
@@ -479,6 +481,7 @@ function borrarFoto(event) {
         element.id=i-1;
     }
 }
+
 function masfoto() {
     var newdiv = document.createElement("DIV");
     newdiv.setAttribute("name", "fotoUp");
@@ -537,13 +540,89 @@ function cargaRuta(ruta) {
 
     xmlhttp.onreadystatechange=function()
     {
-    if(xmlhttp.readyState==4 && xmlhttp.status==200)
+        if(xmlhttp.readyState==4)
         {
-            //var res = xmlhttp.getResponseHeader('resultado');
-
-            var res = xmlhttp.responseText.split('"');
-            alert(res);
+            var res = window.JSON.parse(xmlhttp.responseText);
+            document.getElementById("nombre").textContent=res[0].NOMBRE;
+            document.getElementById("fecha").textContent=res[0].FECHA;
+            var dist="Distancia Recorrida: "+res[0].DISTANCIA+" km";
+            document.getElementById("distancia").textContent=dist;
+            var dif="Dificultad: ";
+            for(var i=0; i<res[0].DIFICULTAD; i++){
+                dif=dif+" ★"
+            }
+            document.getElementById("dificultad").textContent=dif;
+            document.getElementById("recorrido").textContent=res[0].RECORRIDO;
+            document.getElementById("descripcion").textContent=res[0].DESCRIPCION;
+            cargaImagenesRuta(ruta);
+            cargaComentariosRuta(ruta);
         }
-    }
     return false;
+    }
+}
+
+function cargaImagenesRuta(ruta){
+var xmlhttp=new XMLHttpRequest();
+    
+    var string="rest/foto/?idr="+ruta.toString();
+
+    xmlhttp.open("GET",string,true);
+    xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    xmlhttp.send();
+
+    xmlhttp.onreadystatechange=function()
+    {
+        if(xmlhttp.readyState==4)
+        {
+            var res = window.JSON.parse(xmlhttp.responseText);
+            fotoActual=document.getElementById("fotoruta");
+            document.getElementById("fotolink").href="img/"+res[0].ARCHIVO;
+            fotoActual.src="img/"+res[0].ARCHIVO;
+            fotoActual.alt=res[0].DESCRIPCION;
+        }
+    return false;
+    }
+}
+
+function cargaComentariosRuta(ruta){
+var xmlhttp=new XMLHttpRequest();
+    
+    var string="rest/comentario/?idr="+ruta.toString();
+
+    xmlhttp.open("GET",string,true);
+    xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    xmlhttp.send();
+
+    xmlhttp.onreadystatechange=function()
+    {
+        if(xmlhttp.readyState==4)
+        {
+            var res = window.JSON.parse(xmlhttp.responseText);
+            comentarios = document.getElementById("comentarios");
+            for(var i=0; i<res.length; i++){
+                var newdiv = document.createElement("DIV");
+                newdiv.setAttribute("class", "bloqueSinPuntos");
+                var h4=document.createElement("H4");
+                var titulo=document.createElement("A");
+                titulo.setAttribute("href", "");
+                titulo.textContent=res[i].TITULO;
+                h4.appendChild(titulo);
+                newdiv.appendChild(h4);
+
+                var detalles = document.createTextNode("Publicado por "+res[i].LOGIN+" el día "+ res[i].FECHA);
+                newdiv.appendChild(detalles);
+
+                var p = document.createElement("P");
+                p.textContent=res[i].TEXTO;
+                newdiv.appendChild(p);
+
+
+                comentarios.appendChild(newdiv);
+                var br = document.createElement("BR");
+                comentarios.appendChild(br);
+            }
+
+        }
+    return false;
+    }
 }
