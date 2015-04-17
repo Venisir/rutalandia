@@ -380,7 +380,18 @@ function masfoto() {
 }
 
 //Funciones para ruta
-function cargaRuta(ruta) {
+function cargaRuta() {
+
+    if(window.localStorage){
+
+        if(sessionStorage.getItem("rutaID")){ // Si hay datos en loginStorage ...
+            var ruta=sessionStorage.getItem("rutaID");
+            //sessionStorage.removeItem("rutaID");
+        }else{
+            //alert("No se ha especificado una ruta.");
+            location.href="/rutalandia/index.html";
+        }
+    }
     
     var xmlhttp=new XMLHttpRequest();
     
@@ -456,7 +467,140 @@ var xmlhttp=new XMLHttpRequest();
                 newdiv.setAttribute("class", "bloqueSinPuntos");
                 var h4=document.createElement("H4");
                 var titulo=document.createElement("A");
-                titulo.setAttribute("href", "");
+                titulo.setAttribute("href", "javascript:enlaceRuta("+res[i].ID_RUTA+")");
+                titulo.textContent=res[i].TITULO;
+                h4.appendChild(titulo);
+                newdiv.appendChild(h4);
+
+                var detalles = document.createTextNode("Publicado por "+res[i].LOGIN+" el día "+ res[i].FECHA);
+                newdiv.appendChild(detalles);
+
+                var p = document.createElement("P");
+                p.textContent=res[i].TEXTO;
+                newdiv.appendChild(p);
+
+
+                comentarios.appendChild(newdiv);
+                var br = document.createElement("BR");
+                comentarios.appendChild(br);
+            }
+
+        }
+    return false;
+    }
+}
+
+function enlaceRuta(id){
+    sessionStorage.setItem("rutaID", id);
+    location.href="/rutalandia/ruta.html";
+}
+
+function cargaUltimasRutas(){
+var xmlhttp=new XMLHttpRequest();
+    
+    var string="rest/ruta/?u=6";
+
+    xmlhttp.open("GET",string,true);
+    xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    xmlhttp.send();
+
+    xmlhttp.onreadystatechange=function()
+    {
+        if(xmlhttp.readyState==4)
+        {
+            var res = window.JSON.parse(xmlhttp.responseText);
+            ultimasRutas = document.getElementById("ultimasRutas");
+
+            while( ultimasRutas.hasChildNodes() ){
+                ultimasRutas.removeChild(ultimasRutas.lastChild);
+            }
+
+            
+
+            var h3=document.createElement("H3");
+            h3.textContent="Últimas Rutas";
+            
+
+            var reload=document.createElement("A");
+            reload.setAttribute("href", "javascript:cargaUltimasRutas()");
+            reload.textContent="↻";
+            reload.setAttribute("style","font-size:30px; text-decoration: none; float: right; vertical-align: top;");
+            h3.appendChild(reload);
+
+            ultimasRutas.appendChild(h3);
+
+            for(var i=0; i<res.length; i++){
+                var article = document.createElement("ARTICLE");
+
+                var h4=document.createElement("H4");
+                var titulo=document.createElement("A");
+                titulo.setAttribute("href", "javascript:enlaceRuta("+res[i].ID+")");
+                titulo.textContent=res[i].NOMBRE;
+                h4.appendChild(titulo);
+                article.appendChild(h4);
+
+                var recorrido = document.createElement("P");
+                recorrido.textContent=res[i].RECORRIDO;
+                article.appendChild(recorrido);
+
+                var descripcion = document.createElement("P");
+                descripcion.textContent=res[i].DESCRIPCION;
+                article.appendChild(descripcion);
+
+
+                ultimasRutas.appendChild(article);
+                var br = document.createElement("BR");
+                ultimasRutas.appendChild(br);
+            }
+
+        }
+    return false;
+    }
+}
+
+
+
+function cargaUltimosComentarios(){
+var xmlhttp=new XMLHttpRequest();
+    
+    var string="rest/comentario/?u=10";
+
+    xmlhttp.open("GET",string,true);
+    xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    xmlhttp.send();
+
+    xmlhttp.onreadystatechange=function()
+    {
+        if(xmlhttp.readyState==4)
+        {
+            var res = window.JSON.parse(xmlhttp.responseText);
+            comentarios = document.getElementById("comentarios");
+
+            while( comentarios.hasChildNodes() ){
+                comentarios.removeChild(comentarios.lastChild);
+            }
+
+            
+
+            var h3=document.createElement("H3");
+            h3.textContent="Últimos Comentarios";
+            
+
+            var reload=document.createElement("A");
+            reload.setAttribute("href", "javascript:cargaUltimosComentarios()");
+            reload.textContent="↻";
+            reload.setAttribute("style","font-size:30px; text-decoration: none; float: right; vertical-align: top;");
+            h3.appendChild(reload);
+
+            comentarios.appendChild(h3);
+
+            for(var i=0; i<res.length; i++){
+                
+                var newdiv = document.createElement("DIV");
+                newdiv.setAttribute("class", "bloque");
+                var h4=document.createElement("H4");
+                var titulo=document.createElement("A");
+                titulo.setAttribute("href", "javascript:enlaceRuta("+res[i].ID_RUTA+")");
                 titulo.textContent=res[i].TITULO;
                 h4.appendChild(titulo);
                 newdiv.appendChild(h4);
