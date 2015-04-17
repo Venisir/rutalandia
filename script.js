@@ -33,31 +33,38 @@ function enviarRegistro() {
     var nombre = document.getElementById("nombre").value;
     var email = document.getElementById("email").value; 
 
-    xmlhttp.open("POST","rest/registro/",true);
-    xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-    xmlhttp.send("usu="+nombreUsuario+"&pwd1="+password1+"&nombre="+nombre+"&email="+email);
 
-    xmlhttp.onreadystatechange=function()
-    {
-    if(xmlhttp.readyState==4)
-        {   
-            var res = window.JSON.parse(xmlhttp.responseText);
+    if (password1 == password2){
 
-            if(res.resultado.localeCompare("ok")==0){
-                //alert("Te has registrado");
+        xmlhttp.open("POST","rest/registro/",true);
+        xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+        xmlhttp.send("usu="+nombreUsuario+"&pwd1="+password1+"&nombre="+nombre+"&email="+email);
 
-                /*
-                document.getElementById("contenedor").style.zIndex = "999999";
-                document.getElementById("contenedor").style.visibility = "visible";
-                document.body.style.overflow = "hidden";
-                */
-                alert("Te has registrado");
+        xmlhttp.onreadystatechange=function()
+        {
+        if(xmlhttp.readyState==4)
+            {   
+                var res = window.JSON.parse(xmlhttp.responseText);
 
-                location.href="/rutalandia/login.html";
-            }else{
-                alert("Error. No se ha podido completar el registro.");
-            }   
+                if(res.resultado.localeCompare("ok")==0){
+                    //alert("Te has registrado");
+
+                    /*
+                    document.getElementById("contenedor").style.zIndex = "999999";
+                    document.getElementById("contenedor").style.visibility = "visible";
+                    document.body.style.overflow = "hidden";
+                    */
+                    alert("Te has registrado");
+
+                    location.href="/rutalandia/login.html";
+                }else{
+                    alert("Error. No se ha podido completar el registro.");
+                }   
+            }
         }
+
+    }else{
+        alert("Las claves no coinciden.");
     }
     return false;
 }
@@ -109,6 +116,37 @@ function enviarLogin() {
     return false;
 }
 
+function comprobarDispLogin() {
+    
+    var xmlhttp;
+
+    if (window.XMLHttpRequest)
+    {// code for IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttp=new XMLHttpRequest();
+    }
+    
+    xmlhttp.open("GET","rest/login/{LOGIN}",true);
+    xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    xmlhttp.send();
+
+    xmlhttp.onreadystatechange=function()
+    {
+        if(xmlhttp.readyState==4)
+        {
+            var res = window.JSON.parse(xmlhttp.responseText);
+
+            if(res.resultado.localeCompare("ok")==0){
+                if(res.disponible.localeCompare("true")==0){
+                    document.getElementById("loginDisp").innerHTML = "El login está disponible";
+                }else{
+                    document.getElementById("loginDisp").innerHTML = "Lo sentimos, el login no está disponible.";
+                } 
+            }else{
+                alert("Ha fallado la petición AJAX.");
+            }   
+        }
+    }
+}
 /*
 function comprobar(){
     if(window.localStorage){ // Se comprueba si hay soporte para Web Storage
