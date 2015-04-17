@@ -6,7 +6,9 @@
 	<link type="text/css" rel="stylesheet" href="fontello/css/iconset.css" />
 	<link href='http://fonts.googleapis.com/css?family=Indie+Flower' rel='stylesheet' type='text/css'>
 	
-<link rel="shortcut icon" href="img/favicon.ico">
+	<link rel="shortcut icon" href="img/favicon.ico">
+
+	<script src="script.js"></script>
 
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -50,54 +52,28 @@
 		
 	    <h2>Detalles de ruta</h2>
 
-		<p style="text-indent:5%;">Este sendero es circular con salida y llegada en la localidad de Benagéber, tiene una distancia de 26,74 kms., se puede hacer andando o en bicicleta BTT.</p>
+		<script> cargaRuta(1) </script>
 
-   		<p style="text-indent:5%;">Pocos senderos se pueden hacer con tanto contenido en nuestra cercanía: Os ofrecemos un sendero que recorre la biodiversidad y la naturaleza del ALTO TURIA (En tramites de ser nombrada Reserva de la Biosfera de la UNESCO), Recorrer aldeas despoblabladas del área que nos ofrecen una HISTORIA de como se vivía hace años en el interior. Durante todo el recorrido descubriremos vistas en miradores sobre el embalse de Benagéber y otras zonas plenas de naturaleza.</p>
-
-   		<p style="text-indent:5%;">El recorrido empieza saliendo desde Benagéber en dirección al Cruce con la carretera CV-390 (Carretera de Utiel a Tuejar), pasaremos por la primera de las aldeas ALDEA DE NIEVA,  la única que actualmente está habitada:</p>
-		
+		<p style="text-indent:5%;"></p>
 
 		<section>
 
-			<h3>Aldeas de Benagéber</h3>
+			<h3 id="nombre">Aldeas de Benagéber</h3>
 
-			<a href="img/foto1original.jpg"><img class="flip1" src="img/foto1original.jpg" alt="" style="width:80%; height:80%;margin-left: 5%;margin-right: 5%;"></a>
+			<a id="fotolink" href="img/foto1original.jpg"><img id="fotoruta" class="flip1" src="img/foto1original.jpg" alt="" style="width:80%; height:80%;margin-left: 5%;margin-right: 5%;"></a>
 
 			<h4>Características</h4>
-			<p>Fecha: <time>20/1/2010</time></p>
-			<p>Distancia Recorrida: 26,74 Kilómetros.</p>
-			<p>Altura, desde un minino de 526 metros a los 907 metros con un desnivel de unos 381 Mts.</p>
-			<p>Dificultad: 4</p>
-			<p>Precaución: No hay áreas peligrosas, pero como siempre debemos vigilar a los más pequeños. </p>
-			<p>Hay varias opciones de este sendero, hemos realizado un recorrido que se puede considerar "mínimo", hay opciones que lo hacen más largo pero también más interesantes (recorrer la cantera y las casas de Tangarinos, subir al Pico Franco desde Nieva...). </p>
+			<p>Fecha y hora: <time id="fecha">20/1/2010</time></p>
+			<p id="distancia">Distancia Recorrida: 26,74 Kilómetros.</p>
+			<p id="dificultad">Dificultad: 4</p>
+			<p id="recorrido">Precaución: No hay áreas peligrosas, pero como siempre debemos vigilar a los más pequeños. </p>
+			<p id="descripcion">Hay varias opciones de este sendero, hemos realizado un recorrido que se puede considerar "mínimo", hay opciones que lo hacen más largo pero también más interesantes (recorrer la cantera y las casas de Tangarinos, subir al Pico Franco desde Nieva...). </p>
 
 		</section>
 		
-		<aside>
+		<aside id="comentarios">
 		    <h3>Comentarios</h3>
 
-			<div class="bloqueSinPuntos">
-			    <h4><a href="ruta.html">Comentario 1</a></h4>
-			    Publicado por $NOMBRE_USU a las <time>10:00</time>
-			    <p>Lorem ipsum dolor sit amet, consectetur adipisicing eli</p>
-			</div>
-
-			<br />
-
-			<div class="bloqueSinPuntos">
-			    <h4><a href="ruta.html">Comentario 2</a></h4>
-			    Publicado por $NOMBRE_USU a las <time>10:00</time>
-			    <p>Maxime veniam possimus eligendi neque inventore commodi</p>
-			</div>
-
-			<br />
-
-			<div class="bloqueSinPuntos">
-			    <h4><a href="ruta.html">Comentario 3</a></h4>
-			    Publicado por $NOMBRE_USU a las <time>10:00</time>
-			    <p>Quae eveniet accusamus, enim quasi mollitia eaque totam</p>
-			</div>
-			<br />
 		</aside>
 <br />
 		<form action="#" method="post" enctype="multipart/form-data" class="bloque" >
