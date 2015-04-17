@@ -58,7 +58,7 @@ function enviarRegistro() {
 
                     location.href="/rutalandia/login.html";
                 }else{
-                    alert("Error. No se ha podido completar el registro.");
+                    alert("Error. No se ha podido completar el registro.\nNombre de usuario ya en uso (probablemente...)");
                 }   
             }
         }
@@ -221,6 +221,21 @@ function redireccionaSiNoEstasLogueado(){
     }
 }
 
+function comprobarFormularioComentarios(){
+        
+    if(window.localStorage){
+        //alert("Va");
+        if(sessionStorage.getItem("login")){ // Si hay datos en loginStorage ...
+            
+        }else{
+
+            document.getElementById("contenidoFormCOmentarios").innerHTML = "Necesitas estar logueado para comentar."
+
+        }
+    }
+}
+
+/*
 function enviarCambioDatos() {
     
     var nombreUsuario = document.getElementById("nombreUsuario").value;
@@ -323,7 +338,7 @@ function enviarCambioDatos() {
     }
     document.getElementById("formularioDatos").submit();
 }
-
+*/
 
 // Funciones para nueva ruta
 function muestrafoto(event) {

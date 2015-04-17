@@ -17,7 +17,7 @@
 <body>
 
 	<script type="text/javascript">
-		redireccionaSiNoEstasLogueado();
+		//redireccionaSiNoEstasLogueado();
 	</script>
 
 	<nav>
@@ -87,23 +87,33 @@
 		    <h3>Comentarios</h3>
 
 		</aside>
-<br />
-		<form action="#" method="post" enctype="multipart/form-data" class="bloque" >
+		<br />
+
+		<form action="#" method="post" enctype="multipart/form-data" class="bloque" id="bloque" >
 
 			<h4>Comentar</h4>
+			
+			<div class="contenidoFormCOmentarios" id="contenidoFormCOmentarios" >
+			
+				Titulo: <br /><input required type="text" name="titulo" id="titulo" placeholder="Título del comentario." maxlength="50" title="Se necesita un titulo para el comentario." >
+				<br /><br />
 
-			Titulo: <br /><input required type="text" name="titulo" id="titulo" placeholder="Título del comentario." maxlength="50" title="Se necesita un titulo para el comentario." >
-			<br /><br />
+				Texto: <br /><textarea required type="text" name="texto" id="texto" placeholder="Introduce el comentario." maxlength="150" title="Introduce el comentario."></textarea>
+				<br /><br />
 
-			Texto: <br /><textarea required type="text" name="texto" id="texto" placeholder="Introduce el comentario." maxlength="150" title="Introduce el comentario."></textarea>
-			<br /><br />
+				campoOculto: <br /><textarea name="campoOculto" id="campoOculto" placeholder="Esto NO debe verse" title="campoOculto"></textarea>
+				<br /><br />
 
-			campoOculto: <br /><textarea name="campoOculto" id="campoOculto" placeholder="Esto NO debe verse" title="campoOculto"></textarea>
-			<br /><br />
+				<button class="submit" type="submit">Enviar</button>
 
-			<button class="submit" type="submit">Enviar</button>
+			</div>
 			<br /><br />
 		</form>
+
+		<script type="text/javascript">
+			comprobarFormularioComentarios();
+		</script>
+
 	</p>
 
 
