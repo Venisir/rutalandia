@@ -88,11 +88,12 @@
 		</aside>
 		<br />
 
-		<form action="#" method="post" enctype="multipart/form-data" class="bloque" id="bloque" >
+		<form id="bloque" method="post" enctype="multipart/form-data" class="bloque" onsubmit="return enviarComentario()">
+
 
 			<h4>Comentar</h4>
 			
-			<div class="contenidoFormCOmentarios" id="contenidoFormCOmentarios" >
+			<div class="contenidoFormComentarios" id="contenidoFormComentarios" >
 			
 				Titulo: <br /><input required type="text" name="titulo" id="titulo" placeholder="Título del comentario." maxlength="50" title="Se necesita un titulo para el comentario." >
 				<br /><br />
@@ -103,7 +104,7 @@
 				campoOculto: <br /><textarea name="campoOculto" id="campoOculto" placeholder="Esto NO debe verse" title="campoOculto"></textarea>
 				<br /><br />
 
-				<button class="submit" type="submit">Enviar</button>
+				<input type="submit" value="Enviar">
 
 			</div>
 			<br /><br />
