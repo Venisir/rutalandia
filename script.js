@@ -47,13 +47,7 @@ function enviarRegistro() {
                 var res = window.JSON.parse(xmlhttp.responseText);
 
                 if(res.resultado.localeCompare("ok")==0){
-                    //alert("Te has registrado");
 
-                    /*
-                    document.getElementById("contenedor").style.zIndex = "999999";
-                    document.getElementById("contenedor").style.visibility = "visible";
-                    document.body.style.overflow = "hidden";
-                    */
                     alert("Te has registrado");
 
                     location.href="/rutalandia/login.html";
@@ -98,13 +92,13 @@ function enviarLogin() {
                 alert("Te has logueado. Bienvenido, "+res.login);
 
                 if(window.localStorage){ // Se comprueba si hay soporte para Web Storage
-                
-                    //var frm = document.querySelectorAll("form")[0];
-                    //if(frm.recordarLogin.checked){ // Si se ha marcado guardar datos ...
-                        sessionStorage.setItem("login", res.login);
-                        //sessionStorage["pass"] = res.clave; // modo alternativo
-                        sessionStorage.setItem("pass", res.clave);
-                    //}
+                    sessionStorage.setItem("login", res.login);
+                    sessionStorage.setItem("pass", res.clave);
+
+                    if(document.getElementById("recordarLogin").checked){
+                        localStorage.setItem("login", res.login);
+                        localStorage.setItem("pass", res.clave);
+                    }
                 }
 
                 location.href="/rutalandia/index.html";
@@ -160,17 +154,16 @@ function comprobar(){
 */
 
 
-/*
+
 function rellenar(){ // Se comprueba si hay soporte para Web Storage
     if(window.localStorage){
-        var frm = document.querySelectorAll("form")[0];
-        if(localStorage.getItem("login")){ // Si hay datos en loginStorage ...
+        var frm = document.getElementById("formLogin");
+        if(localStorage.getItem("login")){
             frm.login.value = localStorage.getItem("login");
-            frm.pass.value = localStorage.pass; // modo alternativo
+            frm.pass.value = localStorage.getItem("pass");
         }
     }
 }
-*/
 
 function comprobarSesion(){
     if(window.localStorage){
@@ -708,4 +701,43 @@ function cargaUltimosComentarios(){
         }
     return false;
     }
+}
+
+function enviarComentario(){
+
+    var xmlhttp;
+    if (window.XMLHttpRequest)
+    {// code for IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttp=new XMLHttpRequest();
+    }
+
+    var clave = sessionStorage.getItem("pass");
+    var login = sessionStorage.getItem("login");    
+    var titulo = document.getElementById("titulo").value;
+    var texto = document.getElementById("texto").value;
+    var idruta = sessionStorage.getItem("rutaID");
+
+    xmlhttp.open("POST","rest/comentario/",true);
+    xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    xmlhttp.send("clave="+clave+"&login="+login+"&titulo="+titulo+"&texto="+texto+"&idruta="+idruta);
+
+    xmlhttp.onreadystatechange=function()
+    {
+        if(xmlhttp.readyState==4)
+        {   
+            var res = window.JSON.parse(xmlhttp.responseText);
+
+            if(res.resultado.localeCompare("ok")==0){
+
+                alert("Has mandado el comentario con éxito");
+
+                document.getElementById("titulo").value = "";
+                document.getElementById("texto").value = "";
+
+            }else{
+               alert("Error. No se ha podido enviar tu comentario.");
+            }   
+        }
+    }
+    return false;
 }
