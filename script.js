@@ -221,6 +221,82 @@ function redireccionaSiNoEstasLogueado(){
     }
 }
 
+function dificultad(n){
+
+    document.getElementById("dificultadEscrita").innerHTML = n;
+
+    var a = document.getElementById("dificultadEscrita").innerHTML;
+
+    for(var i=1; i<=5; i++){
+        document.getElementById(i+"e").style.color = "rgb(136, 136, 136)";
+    }
+
+    for(var i=1; i<=n; i++){
+        document.getElementById(i+"e").style.color = "rgb(242, 232, 42)";
+    }
+
+    //alert(a);
+}
+
+
+function enviarNuevaRuta() {
+        
+    var fd = new FormData(document.getElementById("formNuevaRuta"));
+    var xhr = new XMLHttpRequest();
+
+    var fecha = document.getElementById("fecha").value;
+    var titulo = document.getElementById("titulo").value;
+    var recorrido = document.getElementById("recorrido").value;
+    var descripcion = document.getElementById("descripcion").value;
+    var distancia = document.getElementById("distancia").value; 
+    var dificultad = document.getElementById("dificultadEscrita").innerHTML;
+    var distancia = document.getElementById("distancia").value;
+
+    var piefoto = new Array(numFotos.innerHTML);
+
+    for(var j=1; j<=numFotos.innerHTML; j++){
+        piefoto[j-1] = document.getElementById("midescrip"+j).value;
+    }
+
+    var fotos = new Array(numFotos.innerHTML);
+
+    for(var k=1; k<=numFotos.innerHTML; k++){
+        fotos[k-1] = document.getElementById("imagen"+k).files[0];
+    }
+
+    fd.append('clave',sessionStorage.getItem("pass"));
+    fd.append('login',sessionStorage.getItem("login"));
+    fd.append('fecha', fecha);
+    fd.append('nombre', titulo);
+    fd.append('recorrido', recorrido);
+    fd.append('descripcion', descripcion);
+    fd.append('dificultad', dificultad);
+    fd.append('distancia', distancia);
+    fd.append('piefoto', piefoto);
+    fd.append('fotos', fotos);
+
+
+    xhr.onload = function(){
+        //alert(xhr.responseText);
+
+        var res = window.JSON.parse(xhr.responseText);
+
+        if(res.resultado.localeCompare("ok")==0){
+            alert("Ruta añadida correctamente.");
+            location.href="/rutalandia/nueva_ruta.html";
+        }else{
+            alert("No se pudo añadir la ruta. NORMAL.");
+        }   
+
+    };
+
+    xhr.open('POST', 'rest/ruta/', true);
+    xhr.send(fd);
+
+    return false;
+    
+}
+
 function comprobarFormularioComentarios(){
         
     if(window.localStorage){
@@ -235,111 +311,6 @@ function comprobarFormularioComentarios(){
     }
 }
 
-/*
-function enviarCambioDatos() {
-    
-    var nombreUsuario = document.getElementById("nombreUsuario").value;
-    var password1 = document.getElementById("password1").value;
-    var password2 = document.getElementById("password2").value;
-    var email = document.getElementById("email").value; 
-
-    var fechaNacimiento = new Date(document.getElementById("fechaNacimiento").value);
-    var diaNacimiento = parseInt(fechaNacimiento.getDate());
-    var mesNacimiento = parseInt(fechaNacimiento.getMonth());
-    var anyoNacimiento = parseInt(fechaNacimiento.getFullYear());
-
-    var fechaHoy = new Date();
-    var diaHoy = parseInt(fechaHoy.getDate());
-    var mesHoy = parseInt(fechaHoy.getMonth());
-    var anyoHoy = parseInt(fechaHoy.getFullYear());
-
-    document.getElementById("nombreUsuario").style.background = 'white';
-    document.getElementById("password1").style.background = 'white';
-    document.getElementById("password2").style.background = 'white';
-    document.getElementById("email").style.background = 'white';
-    document.getElementById("fechaNacimiento").style.background = 'white';
-
-    if(esEspacios(nombreUsuario)){
-        document.getElementById("nombreUsuario").style.background = 'Crimson';
-        alert("No has introducido el usuario");
-        return;
-    }
-
-    if(!esLetrasyNumeros(nombreUsuario)){
-        document.getElementById("nombreUsuario").style.background = 'Crimson';
-        alert("Nombre de usuario incorrecto. Sólo se permiten letras y números");
-        return;
-    }
-
-    if(!esLongitud(nombreUsuario, 3, 15)){
-        document.getElementById("nombreUsuario").style.background = 'Crimson';
-        alert("Nombre de usuario incorrecto. Tiene que tener entre 3 y 15 carácteres");
-        return;
-    }
-
-    if(esEspacios(password1)){
-        document.getElementById("password1").style.background = 'Crimson';
-        alert("No has introducido la contraseña");
-        return;
-    }
-
-    if(!esLetrasyNumerosSub(password1)){
-        document.getElementById("password1").style.background = 'Crimson';
-        alert("Contraseña incorrecta. Sólo se permiten letras, números y subrayado");
-        return;
-    }
-
-    if(!esLongitud(password1, 6, 15)){
-        document.getElementById("password1").style.background = 'Crimson';
-        alert("Contraseña incorrecta. Tiene que tener entre 6 y 15 carácteres");
-        return;
-    }
-
-    if(!contieneMayMinNum(password1)){
-        document.getElementById("password1").style.background = 'Crimson';
-        alert("Contraseña incorrecta. Tiene que contener al menos una letra mayúscula, una minúscula y un número");
-        return;
-    }
-
-    if(esEspacios(password2)){
-        document.getElementById("password2").style.background = 'Crimson';
-        alert("No has introducido la confirmación de contraseña");
-        return;
-    }
-
-    if(!(password1==password2)){
-        document.getElementById("password2").style.background = 'Crimson';
-        alert("Las contraseñas no coinciden");
-        return;
-    }
-
-    if(esEspacios(email)){
-        document.getElementById("email").style.background = 'Crimson';
-        alert("No has introducido el correo");
-        return;
-    }
-
-    if(!esEmail(email)){
-        document.getElementById("email").style.background = 'Crimson';
-        alert("La dirección de correo no es válida");
-        return;
-    }
-
-    if(fechaNacimiento=="Invalid Date"){
-        document.getElementById("fechaNacimiento").style.background = 'Crimson';
-        alert("No has introducido la fecha");
-        return;
-    }
-
-    if(fechaNacimiento > fechaHoy){
-        document.getElementById("fechaNacimiento").style.background = 'Crimson';
-        alert("Fecha inválida");
-        return;
-    }
-    document.getElementById("formularioDatos").submit();
-}
-*/
-
 // Funciones para nueva ruta
 function muestrafoto(event) {
     var selectedFile = event.target.files[0];
@@ -348,11 +319,13 @@ function muestrafoto(event) {
         var newDiv=masfoto();
         p=newDiv.childNodes[1];
         p.textContent="Error: Tamaño máximo de foto: 500KB";
-        //alert("Error: Tamaño máximo de foto: 500KB")
+        
+        //alert("Error: Tamaño máximo de foto: 500KB");
+        //location.href="/rutalandia/nueva_ruta.html";
     }
     else{
         var reader = new FileReader();
-        var inputs = document.getElementsByName("imagen");
+        var inputs = document.getElementsByName("imagen"+numFotos.innerHTML);
         var imagelist = document.images;
         var id=imagelist.length-1;
         var arrayLength = inputs.length;
@@ -378,6 +351,9 @@ function muestrafoto(event) {
 }
 
 function borrarFoto(event) {
+
+    document.getElementById("numFotos").innerHTML = parseInt(document.getElementById("numFotos").innerHTML) - 1;
+
     var toDelete=document.getElementById(event.target.parentNode.id);
     document.getElementById("listafotos").removeChild(toDelete);
     var arrayLength = document.getElementById("listafotos").childNodes.length;
@@ -388,6 +364,9 @@ function borrarFoto(event) {
 }
 
 function masfoto() {
+
+    document.getElementById("numFotos").innerHTML = parseInt(document.getElementById("numFotos").innerHTML) + 1;
+
     var newdiv = document.createElement("DIV");
     newdiv.setAttribute("name", "fotoUp");
     var fotoN = document.getElementsByName("fotoUp").length;
@@ -408,7 +387,8 @@ function masfoto() {
     var br = document.createElement("BR");
     newdiv.appendChild(br);
     var ta = document.createElement("TEXTAREA");
-    ta.setAttribute("id", "midescrip");
+    ta.setAttribute("id", "midescrip"+numFotos.innerHTML);
+    ta.setAttribute("name", "piefoto[]");
     ta.setAttribute("placeholder", "Descripción de la foto");
     ta.setAttribute("title", "Describe la foto");
     newdiv.appendChild(ta);
@@ -420,8 +400,8 @@ function masfoto() {
     newdiv.appendChild(elige);
     var imginput = document.createElement("INPUT");
     imginput.setAttribute("type", "file");
-    imginput.setAttribute("name", "imagen");
-    imginput.setAttribute("id", "imagen");
+    imginput.setAttribute("name", "fotos[]");
+    imginput.setAttribute("id", "imagen"+numFotos.innerHTML);
     imginput.setAttribute("onchange", "muestrafoto(event)")
     newdiv.appendChild(imginput);
     var br = document.createElement("BR");
@@ -492,8 +472,8 @@ var xmlhttp=new XMLHttpRequest();
         {
             var res = window.JSON.parse(xmlhttp.responseText);
             fotoActual=document.getElementById("fotoruta");
-            document.getElementById("fotolink").href="img/"+res[0].ARCHIVO;
-            fotoActual.src="img/"+res[0].ARCHIVO;
+            document.getElementById("fotolink").href="fotos/"+res[0].ARCHIVO;
+            fotoActual.src="fotos/"+res[0].ARCHIVO;
             fotoActual.alt=res[0].DESCRIPCION;
         }
     return false;
@@ -557,9 +537,9 @@ var xmlhttp=new XMLHttpRequest();
     xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
     xmlhttp.send();
 
-    xmlhttp.onreadystatechange=function()
+    xmlhttp.onload=function()
     {
-        if(xmlhttp.readyState==4)
+        if(xmlhttp.readyState==4 && xmlhttp.status==200)
         {
             var res = window.JSON.parse(xmlhttp.responseText);
             ultimasRutas = document.getElementById("ultimasRutas");
@@ -568,12 +548,9 @@ var xmlhttp=new XMLHttpRequest();
                 ultimasRutas.removeChild(ultimasRutas.lastChild);
             }
 
-            
-
             var h3=document.createElement("H3");
             h3.textContent="Últimas Rutas";
             
-
             var reload=document.createElement("A");
             reload.setAttribute("href", "javascript:cargaUltimasRutas()");
             reload.textContent="↻";
@@ -582,39 +559,95 @@ var xmlhttp=new XMLHttpRequest();
 
             ultimasRutas.appendChild(h3);
 
-            for(var i=0; i<res.length; i++){
-                var article = document.createElement("ARTICLE");
+            var idesFotos = new Array();
 
-                var h4=document.createElement("H4");
-                var titulo=document.createElement("A");
-                titulo.setAttribute("href", "javascript:enlaceRuta("+res[i].ID+")");
-                titulo.textContent=res[i].NOMBRE;
-                h4.appendChild(titulo);
-                article.appendChild(h4);
+            var n=0;
 
-                var recorrido = document.createElement("P");
-                recorrido.textContent=res[i].RECORRIDO;
-                article.appendChild(recorrido);
-
-                var descripcion = document.createElement("P");
-                descripcion.textContent=res[i].DESCRIPCION;
-                article.appendChild(descripcion);
+            siguienteRuta(ultimasRutas, res, n);
 
 
-                ultimasRutas.appendChild(article);
-                var br = document.createElement("BR");
-                ultimasRutas.appendChild(br);
-            }
-
+            //cargaImagenesDeLasRutasConID(idesFotos, 0);
         }
     return false;
     }
 }
 
 
+function siguienteRuta(ultimasRutas, res, i){
+
+    var article = document.createElement("ARTICLE");
+    var h4=document.createElement("H4");
+    var titulo=document.createElement("A");
+    titulo.setAttribute("href", "javascript:enlaceRuta("+res[i].ID+")");
+    titulo.textContent=res[i].NOMBRE;
+    h4.appendChild(titulo);
+    article.appendChild(h4);
+
+    //alert(res[i].ID);
+
+    var recorrido = document.createElement("P");
+    recorrido.textContent=res[i].RECORRIDO;
+    article.appendChild(recorrido);
+/*
+    var descripcion = document.createElement("P");
+    descripcion.textContent=res[i].DESCRIPCION;
+    descripcion.setAttribute("id", "descripcionRuta"+i);
+    article.appendChild(descripcion);
+*/
+    var figure = document.createElement("FIGURE");
+    figure.setAttribute("id", "figureImagen"+i);
+    //figure.textContent=res[i].DESCRIPCION;
+    article.appendChild(figure);
+
+    ultimasRutas.appendChild(article);
+    var br = document.createElement("BR");
+    ultimasRutas.appendChild(br);
+
+    /////////////////////
+ 
+    var xmlhttpFoto = new XMLHttpRequest();
+                       
+    var aux = res[i].ID;
+
+    //alert("aux: "+aux);
+    
+    var stringFoto="rest/foto/?idr="+aux;
+
+
+    xmlhttpFoto.open("GET",stringFoto,true);
+    xmlhttpFoto.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    xmlhttpFoto.send();
+
+    xmlhttpFoto.onload=function()
+    {
+        if(xmlhttpFoto.readyState==4 && xmlhttpFoto.status==200)
+        {
+            var resFoto = window.JSON.parse(xmlhttpFoto.responseText);
+            //alert("archivo: " + resFoto[0].ARCHIVO);    
+            //alert("Holis");  
+
+            document.getElementById("figureImagen"+i).innerHTML='<img class="flip1" src="fotos/thumbnails/'+resFoto[0].ARCHIVO+'" alt=""><figcaption class="flip">-'+res[i].DESCRIPCION+'<br/ >-Añadida por: '+ res[i].LOGIN+'<br/ >-Dificultad: '+ res[i].DIFICULTAD+ ' &#9733<br/ >-Distancia: '+ res[i].DISTANCIA + 'km.</figcaption>';
+
+            if(i<res.length){
+                i++;
+                siguienteRuta(ultimasRutas, res, i);
+            }
+                /*
+                <figure>
+                    <img class="flip1" src="img/foto1.jpg" alt="">
+                    <figcaption class="flip">
+                        26,74 km, dificultad media, 1 foto, 1 comentario
+                    </figcaption>
+                </figure>
+                */
+
+        }
+    }
+}
 
 function cargaUltimosComentarios(){
-var xmlhttp=new XMLHttpRequest();
+
+    var xmlhttp=new XMLHttpRequest();
     
     var string="rest/comentario/?u=10";
 

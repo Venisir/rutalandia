@@ -62,7 +62,7 @@
 		<!--                             CONTENIDO                                  -->
 
 
-	    <form action="#" method="post" enctype="multipart/form-data" >
+	    <form id="formNuevaRuta" method="post" enctype="multipart/form-data" onsubmit="return enviarNuevaRuta();">
 
 			<h2>Nueva Ruta</h2>
 
@@ -81,17 +81,23 @@
 			<input required type="number" min="0" max="50" step="0.01" value="10" name="distancia" id="distancia" title="Introduce la distancia de la ruta." >Km
 			<br /> <br />
 
-			Dificultad:
-
-
-			<div class="valorar">
-				<a href="#1" data-value="1" title="Para todos los públicos">&#9733;</a>
-				<a href="#2" data-value="2" title="Fácil, pero no para cualquiera">&#9733;</a>
-				<a href="#3" data-value="3" title="Para iniciados">&#9733;</a>
-				<a href="#4" data-value="4" title="Se requiere experiencia">&#9733;</a>
-				<a href="#5" data-value="5" title="Sólo para los más expertos">&#9733;</a>
-			</div>
+			Dificultad: <span id="dificultadEscrita">0</span>
+			
 			<br />
+
+			<div class="valorar" id="dificultad" >
+				<a href="javascript:dificultad(1)" id="1e" data-value="1" title="Para todos los públicos">&#9733;</a>
+				<a href="javascript:dificultad(2)" id="2e" data-value="2" title="Fácil, pero no para cualquiera">&#9733;</a>
+				<a href="javascript:dificultad(3)" id="3e" data-value="3" title="Para iniciados">&#9733;</a>
+				<a href="javascript:dificultad(4)" id="4e" data-value="4" title="Se requiere experiencia">&#9733;</a>
+				<a href="javascript:dificultad(5)" id="5e" data-value="5" title="Sólo para los más expertos">&#9733;</a>
+			</div>
+
+
+			<br />
+			<br />
+
+			Fotos: <span id="numFotos">0</span>
 			<br />
 
 			<div id="listafotos">
@@ -105,7 +111,7 @@
 
 			<button type="button" onclick="masfoto()">Añadir más fotos</button>
 
-			<button class="submit" type="submit">Enviar</button>
+			<input type="submit" value="Enviar">
 
 		</form>
 		

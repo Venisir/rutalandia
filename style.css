@@ -337,6 +337,7 @@ nav{
 /*
  * El selector de hijo, es necesario para aumentar la especifidad
  */
+ 
 .valorar > a:hover ~ a {
 	color: #888;
 }
