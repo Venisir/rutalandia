@@ -46,7 +46,7 @@
 
 	<script>
 	ponerCabecera();
-	cargaRuta()
+	cargaRuta();
 	</script>
 	
 	<header>
@@ -71,7 +71,14 @@
 
 			<h3 id="nombre">Aldeas de Benagéber</h3>
 
-			<a id="fotolink" href="img/foto1original.jpg"><img id="fotoruta" class="flip1" src="img/foto1original.jpg" alt="" style="width:80%; height:80%;margin-left: 5%;margin-right: 5%;"></a>
+			<div class="slideshow">
+			<a id="fotolink" href="img/foto1original.jpg">
+			<img id="fotoruta" class="flip1" src="img/foto1original.jpg" style="width:80%; height:80%;margin-left: 5%;margin-right: 5%;">
+			</a>
+			<div class="leftarrow" > <a href="javascript:skipLeft()" style="text-decoration:none"> <</a> </div>
+			<div class="rightarrow" ><a href="javascript:skipRight()" style="text-decoration:none"> ></a> </div>
+			</div>
+			
 
 			<h4>Características</h4>
 			<p>Fecha y hora: <time id="fecha">20/1/2010</time></p>

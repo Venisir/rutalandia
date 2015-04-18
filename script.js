@@ -477,6 +477,9 @@ function cargaRuta() {
     }
 }
 
+
+
+
 function cargaImagenesRuta(ruta){
 var xmlhttp=new XMLHttpRequest();
     
@@ -491,13 +494,49 @@ var xmlhttp=new XMLHttpRequest();
         if(xmlhttp.readyState==4)
         {
             var res = window.JSON.parse(xmlhttp.responseText);
-            fotoActual=document.getElementById("fotoruta");
-            document.getElementById("fotolink").href="img/"+res[0].ARCHIVO;
-            fotoActual.src="img/"+res[0].ARCHIVO;
-            fotoActual.alt=res[0].DESCRIPCION;
+
+            var arrayImagenes= new Array();
+
+            for(var i=0; i<res.length; i++){
+            arrayImagenes[i] = new Image();
+            arrayImagenes[i].src="img/"+res[i].ARCHIVO;
+            arrayImagenes[i].alt=res[i].DESCRIPCION;
+            document.getElementById("fotoruta").appendChild(arrayImagenes[i]);
+            }
+            setTimeout("cambiaImagen()", 1);
+            setInterval("cambiaImagen()", 7000);
         }
     return false;
     }
+}
+
+var iterador=0;
+
+function cambiaImagen(){
+    var fotoRuta=document.getElementById("fotoruta");
+
+    document.getElementById("fotolink").href=fotoruta.childNodes[iterador].src;
+    fotoRuta.src=fotoRuta.childNodes[iterador].src;
+    fotoRuta.alt=fotoRuta.childNodes[iterador].alt;
+
+    if(iterador<fotoRuta.childNodes.length-1){
+        iterador++;
+    }
+    else {
+        iterador=0;
+    }
+}
+
+function skipLeft(){
+    iterador=iterador-2;
+    if(iterador<0){
+        iterador=(document.getElementById("fotoruta").childNodes.length)+iterador;
+    }
+    cambiaImagen();
+}
+
+function skipRight(){
+    cambiaImagen();
 }
 
 function cargaComentariosRuta(ruta){
@@ -592,6 +631,24 @@ var xmlhttp=new XMLHttpRequest();
                 h4.appendChild(titulo);
                 article.appendChild(h4);
 
+                var figure =  document.createElement("FIGURE");
+                var imagen = document.createElement("IMG");
+                imagen.setAttribute("class", "flip1");
+                imagen.setAttribute("src", "img/"+res[i].ARCHIVO);
+                imagen.setAttribute("alt", "Imagen de "+res[i].NOMBRE);
+                figure.appendChild(imagen);
+                var figcaption = document.createElement("FIGCAPTION");
+                figcaption.setAttribute("class", "flip");
+                figcaption.textContent=res[i].DISTANCIA+" km\n";
+                for(var j=0; j<res[i].DIFICULTAD; j++){
+                    figcaption.textContent=figcaption.textContent+" ★";
+                }
+                figcaption.textContent= figcaption.textContent+"\n"+res[i].NFOTOS+" Fotos\n"+res[i].NCOMENTARIOS+" Comentarios"
+                figure.appendChild(figcaption);
+                article.appendChild(figure);
+
+            
+
                 var recorrido = document.createElement("P");
                 recorrido.textContent=res[i].RECORRIDO;
                 article.appendChild(recorrido);
@@ -636,7 +693,7 @@ var xmlhttp=new XMLHttpRequest();
             
 
             var h3=document.createElement("H3");
-            h3.textContent="Últimos Comentarios";
+            h3.textContent="Comentarios";
             
 
             var reload=document.createElement("A");
