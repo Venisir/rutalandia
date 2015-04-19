@@ -467,8 +467,6 @@ function enviarNuevaRuta() {
     xhr.open('POST', 'rest/ruta/', true);
     xhr.send(fd);
 
-
-
     return false;   
 }
 
@@ -1238,7 +1236,7 @@ function muestraResultadoBusqueda(){
             var figure =  document.createElement("FIGURE");
             var imagen = document.createElement("IMG");
             imagen.setAttribute("class", "flip1");
-            imagen.setAttribute("src", "fotos/"+arrayRutas[i].getArchivo());
+            imagen.setAttribute("src", "fotos/thumbnails/"+arrayRutas[i].getArchivo());
             imagen.setAttribute("alt", "Imagen de "+arrayRutas[i].getNombre());
             figure.appendChild(imagen);
             var figcaption = document.createElement("FIGCAPTION");
