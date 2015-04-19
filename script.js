@@ -48,11 +48,9 @@ function enviarRegistro() {
 
                 if(res.resultado.localeCompare("ok")==0){
 
-                    alert("Te has registrado");
-
-                    location.href="/rutalandia/login.html";
+                    avisoRegistro("correcto");
                 }else{
-                    alert("Error. No se ha podido completar el registro.\nNombre de usuario ya en uso (probablemente...)");
+                    avisoRegistro("incorrecto");
                 }   
             }
         }
@@ -61,6 +59,62 @@ function enviarRegistro() {
         alert("Las claves no coinciden.");
     }
     return false;
+}
+
+function avisoRegistro(valor) {
+
+    var textoBoton;
+    var textoP;
+
+    document.getElementById("contenedor").style.zIndex = "99999";
+    document.getElementById("contenedor").style.visibility = "visible";
+    document.getElementById("contenedor").style.position = "fixed";
+
+    var divAviso = document.createElement("DIV");
+    divAviso.setAttribute("id", "divAviso");
+
+    if(valor.localeCompare("correcto")==0){
+        textoBoton = "Ir a Login";
+        textoP = "Registro completado.";
+    }else{
+        textoBoton = "Volver";
+        textoP = "Error en el registro.";
+    }
+
+    var texto = document.createElement("P");
+    texto.textContent = textoP;
+
+    divAviso.appendChild(texto);
+
+    var boton = document.createElement("INPUT");
+    boton.setAttribute("type", "button");
+    boton.setAttribute("value", textoBoton);
+    
+    if(valor.localeCompare("correcto")==0){
+        boton.setAttribute("onclick", "redireccionaLogin()");
+    }else{
+        boton.setAttribute("onclick", "cerrarVentana();");
+    }
+
+    divAviso.appendChild(boton);
+    divAviso.style = "position: fixed; top: 50%; left: 50%; margin-top: -50px; margin-left: -50px; opacity: 1; background-color: grey; border-style: solid; z-index: 999999; padding-right: 20px; padding-left: 20px; padding-top: 10px; padding-bottom: 10px;";
+    document.body.appendChild(divAviso);
+}
+
+function redireccionaIndex(){
+    location.href="/rutalandia/index.html";
+    //return false;
+}
+
+function redireccionaLogin(){
+    location.href="/rutalandia/login.html";
+    //return false;
+}
+
+function cerrarVentana(){
+    document.getElementById("contenedor").style.visibility = "hidden";
+    document.getElementById("divAviso").style.visibility = "hidden";
+    //return false;
 }
 
 //Envia el logueo al servidor.
@@ -87,7 +141,8 @@ function enviarLogin() {
             var res = window.JSON.parse(xmlhttp.responseText);
 
             if(res.resultado.localeCompare("ok")==0){
-                alert("Te has logueado. Bienvenido, "+res.login);
+
+                avisoLogin("correcto");
 
                 if(window.localStorage){ // Se comprueba si hay soporte para Web Storage
                     sessionStorage.setItem("login", res.login);
@@ -98,9 +153,8 @@ function enviarLogin() {
                         localStorage.setItem("pass", res.clave);
                     }
                 }
-                location.href="/rutalandia/index.html";
             }else{
-                alert("Error. No se ha podido completar el logueo.");
+                avisoLogin("incorrecto");
             }   
         }
     }
@@ -151,29 +205,101 @@ function rellenar(){ // Se comprueba si hay soporte para Web Storage
     }
 }
 
+function avisoLogin(valor) {
+
+    var textoBoton;
+    var textoP;
+
+    document.getElementById("contenedor").style.zIndex = "99999";
+    document.getElementById("contenedor").style.visibility = "visible";
+    document.getElementById("contenedor").style.position = "fixed";
+
+    var divAviso = document.createElement("DIV");
+    divAviso.setAttribute("id", "divAviso");
+
+    if(valor.localeCompare("correcto")==0){
+        textoBoton = "Ir a Inicio";
+        textoP = "Login correcto!";
+    }else{
+        textoBoton = "Volver";
+        textoP = "Datos incorrectos.";
+    }
+
+    var texto = document.createElement("P");
+    texto.textContent = textoP;
+
+    divAviso.appendChild(texto);
+
+    var boton = document.createElement("INPUT");
+    boton.setAttribute("type", "button");
+    boton.setAttribute("value", textoBoton);
+    
+    if(valor.localeCompare("correcto")==0){
+        boton.setAttribute("onclick", "redireccionaIndex()");
+    }else{
+        boton.setAttribute("onclick", "cerrarVentana();");
+    }
+
+    divAviso.appendChild(boton);
+    divAviso.style = "position: fixed; top: 50%; left: 50%; margin-top: -50px; margin-left: -50px; opacity: 1; background-color: grey; border-style: solid; z-index: 999999; padding-right: 20px; padding-left: 20px; padding-top: 10px; padding-bottom: 10px;";
+    document.body.appendChild(divAviso);
+}
+
 //Commprueba la sesion (boton de index).
 function comprobarSesion(){
     if(window.localStorage){
+
+        //alert("Va");
+        avisoRegistroCorrecto();
+
         if(sessionStorage.getItem("login")){ // Si hay datos en loginStorage ...
             alert("Estas logueado como " + sessionStorage.getItem("login") + " con clave de sesión " + sessionStorage.getItem("pass"));
         }else{
             alert("No estas logueado!");
         }
     }
+
 }
 
 //Cierra sesion.
-function cerrarSesion(){ // Se comprueba si hay soporte para Web Storage
-    if(window.localStorage){
-        if(sessionStorage.getItem("login")){ // Si hay datos en loginStorage ...
-            alert("Cerrando sesión...");
-            sessionStorage.removeItem("login");
-            sessionStorage.removeItem("pass");
-            location.href="/rutalandia/index.html";
-        }else{
-            alert("¡No puedes cerrar sesión!");
-        }
+function cerrarSesion(){
+
+    var textoBoton;
+    var textoP;
+
+    document.getElementById("contenedor").style.zIndex = "99999";
+    document.getElementById("contenedor").style.visibility = "visible";
+    document.getElementById("contenedor").style.position = "fixed";
+
+    var divAviso = document.createElement("DIV");
+    divAviso.setAttribute("id", "divAviso");
+
+    if(sessionStorage.getItem("login")){
+        textoBoton = "Volver";
+        textoP = "Sesión terminada.";
+    }else{
+        textoBoton = "Volver";
+        textoP = "No puedes cerrar sesión.";
     }
+
+    var texto = document.createElement("P");
+    texto.textContent = textoP;
+
+    divAviso.appendChild(texto);
+
+    var boton = document.createElement("INPUT");
+    boton.setAttribute("type", "button");
+    boton.setAttribute("value", textoBoton);
+    
+    if(sessionStorage.getItem("login")){
+        boton.setAttribute("onclick", "redireccionaIndex();");
+    }else{
+        boton.setAttribute("onclick", "cerrarVentana();");
+    }
+
+    divAviso.appendChild(boton);
+    divAviso.style = "position: fixed; top: 50%; left: 50%; margin-top: -50px; margin-left: -50px; opacity: 1; background-color: grey; border-style: solid; z-index: 999999; padding-right: 20px; padding-left: 20px; padding-top: 10px; padding-bottom: 10px;";
+    document.body.appendChild(divAviso);
 }
 
 //Redirecciona si estas logueado.
@@ -248,6 +374,10 @@ function enviarNuevaRuta() {
         fotos[k-1] = document.getElementById("imagen"+k).files[0];
     }
 
+    document.getElementById("contenedor").style.zIndex = "99999";
+    document.getElementById("contenedor").style.visibility = "visible";
+    document.getElementById("contenedor").style.position = "fixed";
+
     fd.append('clave',sessionStorage.getItem("pass"));
     fd.append('login',sessionStorage.getItem("login"));
     fd.append('fecha', fecha);
@@ -259,16 +389,15 @@ function enviarNuevaRuta() {
     fd.append('piefoto', piefoto);
     fd.append('fotos', fotos);
 
-    xhr.onload = function(){
+    xhr.onreadystatechange = function(){
         //alert(xhr.responseText);
 
         var res = window.JSON.parse(xhr.responseText);
 
         if(res.resultado.localeCompare("ok")==0){
-            alert("Ruta añadida correctamente.");
-            location.href="/rutalandia/nueva_ruta.html";
+            avisoNuevaRuta("correcto");
         }else{
-            alert("No se pudo añadir la ruta. NORMAL.");
+            avisoNuevaRuta("incorrecto");
         }   
 
     };
@@ -277,6 +406,55 @@ function enviarNuevaRuta() {
     xhr.send(fd);
 
     return false;   
+}
+
+function avisoNuevaRuta(valor) {
+
+    var textoBoton;
+
+
+    var divAviso = document.createElement("DIV");
+    divAviso.setAttribute("id", "divAviso");
+
+    if(valor.localeCompare("correcto")==0){
+        textoBoton = "Ir a Index";
+        
+        var texto1 = document.createElement("P");
+        texto1.textContent = "Ruta añadida correctamente.";
+        var texto2 = document.createElement("P");
+        texto2.textContent = "Nombre de la ruta: " + document.getElementById("titulo").value;
+        var texto3 = document.createElement("P");
+        texto3.textContent = "Descripción: " + document.getElementById("descripcion").value;
+
+        divAviso.appendChild(texto1);
+        divAviso.appendChild(texto2);
+        divAviso.appendChild(texto3);
+
+    }else{
+        textoBoton = "Volver";
+
+        var texto11 = document.createElement("P");
+        texto11.textContent = "Error creando la ruta.";
+        var texto22 = document.createElement("P");
+        texto22.textContent = "Vuelve a intentarlo.";
+
+        divAviso.appendChild(texto11);
+        divAviso.appendChild(texto22);
+    }
+
+    var boton = document.createElement("INPUT");
+    boton.setAttribute("type", "button");
+    boton.setAttribute("value", textoBoton);
+    
+    if(valor.localeCompare("correcto")==0){
+        boton.setAttribute("onclick", "redireccionaIndex()");
+    }else{
+        boton.setAttribute("onclick", "cerrarVentana();");
+    }
+
+    divAviso.appendChild(boton);
+    divAviso.style = "position: fixed; top: 50%; left: 50%; margin-top: -50px; margin-left: -50px; opacity: 1; background-color: grey; border-style: solid; z-index: 999999; padding-right: 20px; padding-left: 20px; padding-top: 10px; padding-bottom: 10px;";
+    document.body.appendChild(divAviso);
 }
 
 //Coloca o borra el formulario de comentarios si el usuario no esta logueado.
@@ -704,6 +882,10 @@ function enviarComentario(){
     var texto = document.getElementById("texto").value;
     var idruta = sessionStorage.getItem("rutaID");
 
+    document.getElementById("contenedor").style.zIndex = "99999";
+    document.getElementById("contenedor").style.visibility = "visible";
+    document.getElementById("contenedor").style.position = "fixed";
+
     xmlhttp.open("POST","rest/comentario/",true);
     xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
     xmlhttp.send("clave="+clave+"&login="+login+"&titulo="+titulo+"&texto="+texto+"&idruta="+idruta);
@@ -716,16 +898,51 @@ function enviarComentario(){
 
             if(res.resultado.localeCompare("ok")==0){
 
-                alert("Has mandado el comentario con éxito");
+                avisoComentario("correcto");;
 
-                //cargaComentariosRuta(idruta);
                 document.getElementById("titulo").value = "";
                 document.getElementById("texto").value = "";
 
             }else{
-               alert("Error. No se ha podido enviar tu comentario.");
+                avisoComentario("incorrecto");
             }   
         }
     }
     return false;
+}
+
+function avisoComentario(valor) {
+
+    var textoBoton;
+    var textoP;
+
+    var divAviso = document.createElement("DIV");
+    divAviso.setAttribute("id", "divAviso");
+
+    if(valor.localeCompare("correcto")==0){
+        textoBoton = "Cerrar";
+        textoP = "Comentario añadido correctamente.";
+    }else{
+        textoBoton = "Volver";
+        textoP = "Error añadiendo el comentario.";
+    }
+
+    var texto = document.createElement("P");
+    texto.textContent = textoP;
+
+    divAviso.appendChild(texto);
+
+    var boton = document.createElement("INPUT");
+    boton.setAttribute("type", "button");
+    boton.setAttribute("value", textoBoton);
+    
+    if(valor.localeCompare("correcto")==0){
+        boton.setAttribute("onclick", "cerrarVentana();");
+    }else{
+        boton.setAttribute("onclick", "cerrarVentana();");
+    }
+
+    divAviso.appendChild(boton);
+    divAviso.style = "position: fixed; top: 50%; left: 50%; margin-top: -50px; margin-left: -50px; opacity: 1; background-color: grey; border-style: solid; z-index: 999999; padding-right: 20px; padding-left: 20px; padding-top: 10px; padding-bottom: 10px;";
+    document.body.appendChild(divAviso);
 }
