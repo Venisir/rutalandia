@@ -1,3 +1,4 @@
+//Esta funcion pone diferentes menus de navegacion dependiendo de si el usuario esta logueado.
 function ponerCabecera(){
     
     if(window.localStorage){
@@ -18,7 +19,7 @@ function ponerCabecera(){
     }
 }
 
-
+//Envia el registro al servidor.
 function enviarRegistro() {
     
     var xmlhttp;
@@ -32,7 +33,6 @@ function enviarRegistro() {
     var password2 = document.getElementById("pwd2").value;
     var nombre = document.getElementById("nombre").value;
     var email = document.getElementById("email").value; 
-
 
     if (password1 == password2){
 
@@ -63,6 +63,7 @@ function enviarRegistro() {
     return false;
 }
 
+//Envia el logueo al servidor.
 function enviarLogin() {
     
     var xmlhttp;
@@ -79,14 +80,11 @@ function enviarLogin() {
     xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
     xmlhttp.send("usu="+nombreUsuario+"&pwd="+password1);
 
-
     xmlhttp.onreadystatechange=function()
     {
         if(xmlhttp.readyState==4)
         {
-
             var res = window.JSON.parse(xmlhttp.responseText);
-
 
             if(res.resultado.localeCompare("ok")==0){
                 alert("Te has logueado. Bienvenido, "+res.login);
@@ -100,7 +98,6 @@ function enviarLogin() {
                         localStorage.setItem("pass", res.clave);
                     }
                 }
-
                 location.href="/rutalandia/index.html";
             }else{
                 alert("Error. No se ha podido completar el logueo.");
@@ -110,6 +107,7 @@ function enviarLogin() {
     return false;
 }
 
+//Comprueba que el login este disponible.
 function comprobarDispLogin() {
     
     var xmlhttp;
@@ -141,20 +139,8 @@ function comprobarDispLogin() {
         }
     }
 }
-/*
-function comprobar(){
-    if(window.localStorage){ // Se comprueba si hay soporte para Web Storage
-    var frm = document.querySelectorAll("form")[0];
-        if(frm.ckbGuardar.checked){ // Si se ha marcado guardar datos ...
-            localStorage.setItem("login", frm.login.value);
-            localStorage["pass"] = frm.pass.value; // modo alternativo
-        }
-    }
-}
-*/
 
-
-
+//Si se ha marcado la opcion "recordar", autorellena los campos.
 function rellenar(){ // Se comprueba si hay soporte para Web Storage
     if(window.localStorage){
         var frm = document.getElementById("formLogin");
@@ -165,6 +151,7 @@ function rellenar(){ // Se comprueba si hay soporte para Web Storage
     }
 }
 
+//Commprueba la sesion (boton de index).
 function comprobarSesion(){
     if(window.localStorage){
         if(sessionStorage.getItem("login")){ // Si hay datos en loginStorage ...
@@ -175,6 +162,7 @@ function comprobarSesion(){
     }
 }
 
+//Cierra sesion.
 function cerrarSesion(){ // Se comprueba si hay soporte para Web Storage
     if(window.localStorage){
         if(sessionStorage.getItem("login")){ // Si hay datos en loginStorage ...
@@ -188,6 +176,7 @@ function cerrarSesion(){ // Se comprueba si hay soporte para Web Storage
     }
 }
 
+//Redirecciona si estas logueado.
 function redireccionaSiEstasLogueado(){
     
     if(window.localStorage){
@@ -201,6 +190,7 @@ function redireccionaSiEstasLogueado(){
     }
 }
 
+//Redirecciona si no estas logueado.
 function redireccionaSiNoEstasLogueado(){
         
     if(window.localStorage){
@@ -214,6 +204,7 @@ function redireccionaSiNoEstasLogueado(){
     }
 }
 
+//Sistema de valoracion de estrellas en nueva_ruta.
 function dificultad(n){
 
     document.getElementById("dificultadEscrita").innerHTML = n;
@@ -231,7 +222,7 @@ function dificultad(n){
     //alert(a);
 }
 
-
+//Envia una nueva ruta al servidor.
 function enviarNuevaRuta() {
         
     var fd = new FormData(document.getElementById("formNuevaRuta"));
@@ -268,7 +259,6 @@ function enviarNuevaRuta() {
     fd.append('piefoto', piefoto);
     fd.append('fotos', fotos);
 
-
     xhr.onload = function(){
         //alert(xhr.responseText);
 
@@ -286,10 +276,10 @@ function enviarNuevaRuta() {
     xhr.open('POST', 'rest/ruta/', true);
     xhr.send(fd);
 
-    return false;
-    
+    return false;   
 }
 
+//Coloca o borra el formulario de comentarios si el usuario no esta logueado.
 function comprobarFormularioComentarios(){
         
     if(window.localStorage){
@@ -297,14 +287,14 @@ function comprobarFormularioComentarios(){
         if(sessionStorage.getItem("login")){ // Si hay datos en loginStorage ...
             
         }else{
-
-            document.getElementById("contenidoFormCOmentarios").innerHTML = "Necesitas estar logueado para comentar."
+            //alert("No lo muestra");
+            document.getElementById("contenidoFormComentarios").innerHTML = "Necesitas estar logueado para comentar."
 
         }
     }
 }
 
-// Funciones para nueva ruta
+//Funciones para nueva ruta
 function muestrafoto(event) {
     var selectedFile = event.target.files[0];
     if(selectedFile.size>500*1024){
@@ -448,9 +438,6 @@ function cargaRuta() {
     return false;
     }
 }
-
-
-
 
 function cargaImagenesRuta(ruta){
 var xmlhttp=new XMLHttpRequest();
@@ -731,6 +718,7 @@ function enviarComentario(){
 
                 alert("Has mandado el comentario con éxito");
 
+                //cargaComentariosRuta(idruta);
                 document.getElementById("titulo").value = "";
                 document.getElementById("texto").value = "";
 
