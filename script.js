@@ -66,10 +66,11 @@ function avisoRegistro(valor) {
     var textoBoton;
     var textoP;
 
+/*
     document.getElementById("contenedor").style.zIndex = "99999";
     document.getElementById("contenedor").style.visibility = "visible";
     document.getElementById("contenedor").style.position = "fixed";
-
+*/
     var divAviso = document.createElement("DIV");
     divAviso.setAttribute("id", "divAviso");
     divAviso.setAttribute("style", "position: fixed; top: 50%; left: 50%; margin-top: -50px; margin-left: -50px; opacity: 1; background-color: #7F7F7F; border-style: solid; z-index: 99999999; padding-right: 20px; padding-left: 20px; padding-top: 10px; padding-bottom: 10px;");
@@ -101,6 +102,8 @@ function avisoRegistro(valor) {
     divAviso.appendChild(boton);
     divAviso.style = "position: fixed; top: 50%; left: 50%; margin-top: -50px; margin-left: -50px; opacity: 1; background-color: grey; border-style: solid; z-index: 999999; padding-right: 20px; padding-left: 20px; padding-top: 10px; padding-bottom: 10px;";
     document.body.appendChild(divAviso);
+
+    fadeIn(document.getElementById("divAviso"));
 }
 
 function redireccionaIndex(){
@@ -115,7 +118,11 @@ function redireccionaLogin(){
 
 function cerrarVentana(){
     document.getElementById("contenedor").style.visibility = "hidden";
-    document.getElementById("divAviso").style.visibility = "hidden";
+    //document.getElementById("divAviso").style.visibility = "hidden";
+
+
+    fadeOut(document.getElementById("divAviso"));
+
     //return false;
 }
 
@@ -211,11 +218,11 @@ function avisoLogin(valor) {
 
     var textoBoton;
     var textoP;
-
+/*
     document.getElementById("contenedor").style.zIndex = "99999";
     document.getElementById("contenedor").style.visibility = "visible";
     document.getElementById("contenedor").style.position = "fixed";
-
+*/
     var divAviso = document.createElement("DIV");
     divAviso.setAttribute("id", "divAviso");
     divAviso.setAttribute("style", "position: fixed; top: 50%; left: 50%; margin-top: -50px; margin-left: -50px; opacity: 1; background-color: #7F7F7F; border-style: solid; z-index: 99999999; padding-right: 20px; padding-left: 20px; padding-top: 10px; padding-bottom: 10px;");
@@ -247,6 +254,8 @@ function avisoLogin(valor) {
     divAviso.appendChild(boton);
     divAviso.style = "position: fixed; top: 50%; left: 50%; margin-top: -50px; margin-left: -50px; opacity: 1; background-color: grey; border-style: solid; z-index: 999999; padding-right: 20px; padding-left: 20px; padding-top: 10px; padding-bottom: 10px;";
     document.body.appendChild(divAviso);
+
+    fadeIn(document.getElementById("divAviso"));
 }
 
 //Commprueba la sesion (boton de index).
@@ -270,14 +279,14 @@ function cerrarSesion(){
 
     var textoBoton;
     var textoP;
-
+/*
     document.getElementById("contenedor").style.zIndex = "99999";
     document.getElementById("contenedor").style.visibility = "visible";
     document.getElementById("contenedor").style.position = "fixed";
-
+*/
     var divAviso = document.createElement("DIV");
     divAviso.setAttribute("id", "divAviso");
-    divAviso.setAttribute("style", "position: fixed; top: 50%; left: 50%; margin-top: -50px; margin-left: -50px; opacity: 1; background-color: #7F7F7F; border-style: solid; z-index: 99999999; padding-right: 20px; padding-left: 20px; padding-top: 10px; padding-bottom: 10px;");
+    divAviso.setAttribute("style", "position: fixed; top: 50%; left: 50%; margin-top: -50px; margin-left: -50px; opacity: 0; background-color: #7F7F7F; border-style: solid; z-index: 99999999; padding-right: 20px; padding-left: 20px; padding-top: 10px; padding-bottom: 10px; transition: opacity .25s ease-in-out; -moz-transition: opacity .25s ease-in-out; -webkit-transition: opacity .25s ease-in-out; ");
 
     if(sessionStorage.getItem("login")){
         textoBoton = "Volver";
@@ -308,11 +317,44 @@ function cerrarSesion(){
     }
 
     divAviso.appendChild(boton);    
-    divAviso.style = "position: fixed; top: 50%; left: 50%; margin-top: -50px; margin-left: -50px; opacity: 1; background-color: #7F7F7F; border-style: solid; z-index: 99999999; padding-right: 20px; padding-left: 20px; padding-top: 10px; padding-bottom: 10px;";
+    divAviso.style = "position: fixed; top: 50%; left: 50%; margin-top: -50px; margin-left: -50px; opacity: 0; background-color: #7F7F7F; border-style: solid; z-index: 99999999; padding-right: 20px; padding-left: 20px; padding-top: 10px; padding-bottom: 10px;";
 
     //document.getElementById("contenedor").appendChild(divAviso);
     //document.getElementById('padre').insertBefore(nuevo_parrafo,segundo_p);
     document.body.appendChild(divAviso);
+
+    fadeIn(document.getElementById("divAviso"));
+    //document.getElementById("divAviso").style.opacity = "0";
+}
+
+function fadeOut(element) {
+    var op = 1;  // initial opacity
+    var timer = setInterval(function () {
+        if (op <= 0.1){
+            clearInterval(timer);
+            element.style.display = 'none';
+        }
+        element.style.opacity = op;
+        element.style.filter = 'alpha(opacity=' + op * 100 + ")";
+        op -= op * 0.1;
+    }, 50);
+
+
+    document.getElementById(element).style.visibility = "hidden";
+}
+
+function fadeIn(element) {
+    var op = 0.1;  // initial opacity
+    element.style.display = 'block';
+    var timer = setInterval(function () {
+        if (op >= 1){
+            clearInterval(timer);
+        }
+        element.style.opacity = op;
+        element.style.filter = 'alpha(opacity=' + op * 100 + ")";
+        op += op * 0.1;
+        //alert("here");
+    }, 10);
 }
 
 function recargarPag(){
@@ -390,11 +432,11 @@ function enviarNuevaRuta() {
     for(var k=1; k<=numFotos.innerHTML; k++){
         fotos[k-1] = document.getElementById("imagen"+k).files[0];
     }
-
+/*
     document.getElementById("contenedor").style.zIndex = "99999";
     document.getElementById("contenedor").style.visibility = "visible";
     document.getElementById("contenedor").style.position = "fixed";
-
+*/
     fd.append('clave',sessionStorage.getItem("pass"));
     fd.append('login',sessionStorage.getItem("login"));
     fd.append('fecha', fecha);
@@ -477,6 +519,8 @@ function avisoNuevaRuta(valor) {
     divAviso.appendChild(boton);
     divAviso.style = "position: fixed; top: 50%; left: 50%; margin-top: -50px; margin-left: -50px; opacity: 1; background-color: grey; border-style: solid; z-index: 999999; padding-right: 20px; padding-left: 20px; padding-top: 10px; padding-bottom: 10px;";
     document.body.appendChild(divAviso);
+
+    fadeIn(document.getElementById("divAviso"));
 }
 
 //Coloca o borra el formulario de comentarios si el usuario no esta logueado.
@@ -903,11 +947,11 @@ function enviarComentario(){
     var titulo = document.getElementById("titulo").value;
     var texto = document.getElementById("texto").value;
     var idruta = sessionStorage.getItem("rutaID");
-
+/*
     document.getElementById("contenedor").style.zIndex = "99999";
     document.getElementById("contenedor").style.visibility = "visible";
     document.getElementById("contenedor").style.position = "fixed";
-
+*/
     xmlhttp.open("POST","rest/comentario/",true);
     xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
     xmlhttp.send("clave="+clave+"&login="+login+"&titulo="+titulo+"&texto="+texto+"&idruta="+idruta);
@@ -940,7 +984,7 @@ function avisoComentario(valor) {
 
     var divAviso = document.createElement("DIV");
     divAviso.setAttribute("id", "divAviso");
-    divAviso.setAttribute("style", "position: fixed; top: 50%; left: 50%; margin-top: -50px; margin-left: -50px; opacity: 1; background-color: #7F7F7F; border-style: solid; z-index: 99999999; padding-right: 20px; padding-left: 20px; padding-top: 10px; padding-bottom: 10px;");
+    divAviso.setAttribute("style", "position: fixed; top: 50%; left: 50%; margin-top: -50px; margin-left: -50px; opacity: 0; background-color: #7F7F7F; border-style: solid; z-index: 99999999; padding-right: 20px; padding-left: 20px; padding-top: 10px; padding-bottom: 10px;");
 
     if(valor.localeCompare("correcto")==0){
         textoBoton = "Cerrar";
@@ -968,6 +1012,8 @@ function avisoComentario(valor) {
     divAviso.appendChild(boton);
     //divAviso.style = "position: fixed; top: 50%; left: 50%; margin-top: -50px; margin-left: -50px; opacity: 1; background-color: grey; border-style: solid; z-index: 999999; padding-right: 20px; padding-left: 20px; padding-top: 10px; padding-bottom: 10px;";
     document.body.appendChild(divAviso);
+
+    fadeIn(document.getElementById("divAviso"));
 }
 
 function agrandarSlideshow(){
