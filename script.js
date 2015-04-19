@@ -407,20 +407,25 @@ function enviarNuevaRuta() {
     fd.append('fotos', fotos);
 
     xhr.onreadystatechange = function(){
-        //alert(xhr.responseText);
+        //if(xhr.readyState==3)
+         //   alert(xhr.responseText);
 
-        var res = window.JSON.parse(xhr.responseText);
+        if(xhr.readyState==4)
+        {
+            var res = window.JSON.parse(xhr.responseText);
 
-        if(res.resultado.localeCompare("ok")==0){
-            avisoNuevaRuta("correcto");
-        }else{
-            avisoNuevaRuta("incorrecto");
-        }   
-
+            if(res.resultado.localeCompare("ok")==0){
+                avisoNuevaRuta("correcto");
+            }else{
+                avisoNuevaRuta("incorrecto");
+            }   
+        }
     };
 
     xhr.open('POST', 'rest/ruta/', true);
     xhr.send(fd);
+
+
 
     return false;   
 }
@@ -428,7 +433,6 @@ function enviarNuevaRuta() {
 function avisoNuevaRuta(valor) {
 
     var textoBoton;
-
 
     var divAviso = document.createElement("DIV");
     divAviso.setAttribute("id", "divAviso");
