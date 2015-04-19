@@ -71,9 +71,9 @@
 
 			<h3 id="nombre">Nombre</h3>
 
-			<div class="slideshow">
-			<a id="fotolink" href="img/foto1original.jpg">
-			<img id="fotoruta" class="flip1" src="img/foto1original.jpg" style="width:80%; height:80%;margin-left: 5%;margin-right: 5%;">
+			<div id="slideshow" class="slideshow">
+			<a id="fotolink" href="javascript:agrandarSlideshow()">
+			<img id="fotoruta" class="flip1" src="img/foto1original.jpg" style="width:80%; height:80%; margin-left: 5%;margin-right: 5%;">
 			</a>
 			<div class="leftarrow" > <a href="javascript:skipLeft()" style="text-decoration:none"> <</a> </div>
 			<div class="rightarrow" ><a href="javascript:skipRight()" style="text-decoration:none"> ></a> </div>
@@ -87,6 +87,8 @@
 			<p id="descripcion"></p>
 
 		</section>
+
+		<div id="darkLayer" class="darkClass" style="display:none"></div>
 		
 		<aside id="comentarios">
 		    <h3>Comentarios</h3>

@@ -298,7 +298,7 @@ function comprobarFormularioComentarios(){
             
         }else{
 
-            document.getElementById("contenidoFormCOmentarios").innerHTML = "Necesitas estar logueado para comentar."
+            document.getElementById("contenidoFormComentarios").innerHTML = "Necesitas estar logueado para comentar."
 
         }
     }
@@ -487,7 +487,7 @@ var iterador=0;
 function cambiaImagen(){
     var fotoRuta=document.getElementById("fotoruta");
 
-    document.getElementById("fotolink").href=fotoruta.childNodes[iterador].src;
+    //document.getElementById("fotolink").href=fotoruta.childNodes[iterador].src;
     fotoRuta.src=fotoRuta.childNodes[iterador].src;
     fotoRuta.alt=fotoRuta.childNodes[iterador].alt;
 
@@ -740,4 +740,305 @@ function enviarComentario(){
         }
     }
     return false;
+}
+
+function agrandarSlideshow(){
+    if(document.getElementById("closebutton")==undefined){
+    var slideshow = document.getElementById("slideshow");
+    slideshow.setAttribute("style", "position:absolute; left:10%; top:15%; min-width:80%;");
+    var closebutton = document.createElement("BUTTON");
+    closebutton.setAttribute("id", "closebutton");
+    closebutton.setAttribute("onclick", "cerrarSlideshow()");
+    closebutton.setAttribute("style", "position:absolute; right:10%; top:0px; font-weight: bold; font-size:30px");
+    closebutton.textContent="x";
+    slideshow.appendChild(closebutton);
+    overlayOn();
+    }
+}
+
+function cerrarSlideshow(){
+    var slideshow = document.getElementById("slideshow");
+    slideshow.setAttribute("style", "");
+    slideshow.removeChild(document.getElementById("closebutton"));
+    overlayOff();
+}
+
+function overlayOff()
+{
+    document.getElementById("darkLayer").style.display = "none";
+}
+function overlayOn()
+{
+    document.getElementById("darkLayer").style.display = "";
+}
+
+//Buscador
+
+function ruta(ID, FECHA, NOMBRE, RECORRIDO, DESCRIPCION, LOGIN, DIFICULTAD, DISTANCIA, ARCHIVO, NFOTOS, NCOMENTARIOS) {
+    this.id = ID;  
+    this.fecha = FECHA;
+    this.nombre = NOMBRE;
+    this.recorrido = RECORRIDO;
+    this.descripcion = DESCRIPCION;
+    this.login = LOGIN;
+    this.dificultad = DIFICULTAD;
+    this.distancia = DISTANCIA;
+    this.archivo = ARCHIVO;
+    this.nfotos = NFOTOS;
+    this.ncomentarios = NCOMENTARIOS;
+
+    this.getId = function () {
+        return this.id;
+    }
+
+    this.getFecha = function () {
+        return this.fecha;
+    }
+
+    this.getNombre = function () {
+        return this.nombre;
+    }
+
+    this.getRecorrido = function () {
+        return this.recorrido;
+    }
+
+    this.getDescripcion = function () {
+        return this.descripcion;
+    }
+
+    this.getLogin = function () {
+        return this.login;
+    }
+
+    this.getDificultad = function () {
+        return this.dificultad;
+    }
+
+    this.getDistancia = function () {
+        return this.distancia;
+    }
+
+    this.getArchivo = function () {
+        return this.archivo;
+    }
+
+    this.getNfotos = function () {
+        return this.nfotos;
+    }
+    this.getNcomentarios = function () {
+        return this.ncomentarios;
+    }
+}
+
+
+function buscaRutas(){
+
+    var xmlhttp=new XMLHttpRequest();
+
+    var titulo=document.getElementById("titulo").value;
+    var recorrido=document.getElementById("recorrido").value;
+    var descripcion=document.getElementById("descripcion").value;
+    var fi=document.getElementById("fechaDesde").value;
+    var ff=document.getElementById("fechaHasta").value;
+    var di=document.getElementById("distancia").value;
+    var df=document.getElementById("distanciaHasta").value;
+    var dfi=document.getElementById("dfi").value;
+    var dff=document.getElementById("dff").value;
+
+
+    
+    var string="rest/ruta/?";
+    if(titulo){
+        string+=("&t="+titulo);
+    }
+    if(recorrido){
+        string+=("&r="+recorrido);
+    }
+    if(descripcion){
+        string+=("&d="+descripcion);
+    }
+    if(fi && ff){
+        string+=("&fi="+fi+"&ff="+ff);
+    }
+    if(di && df){
+        string+=("&di="+di+"&df="+df);
+    }
+    if(dfi && dff){
+        string+=("&dfi="+dfi+"&dff="+dff);
+    }
+
+    xmlhttp.open("GET",string,true);
+    xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    xmlhttp.send();
+
+    xmlhttp.onreadystatechange=function()
+    {
+        if(xmlhttp.readyState==4)
+        {
+            var res = window.JSON.parse(xmlhttp.responseText);
+            arrayRutas = new Array();
+
+            for(var i=0; i<res.length; i++){
+                arrayRutas[i]=new ruta(res[i].ID, res[i].FECHA, res[i].NOMBRE, res[i].RECORRIDO, res[i].DESCRIPCION, res[i].LOGIN, res[i].DIFICULTAD, res[i].DISTANCIA, res[i].ARCHIVO, res[i].NFOTOS, res[i].NCOMENTARIOS);
+            }
+
+            muestraResultadoBusqueda();
+        }
+    return false;
+    }
+}
+
+
+function muestraResultadoBusqueda(){
+
+    ultimasRutas = document.getElementById("ultimasRutasBusqueda");
+
+    while( ultimasRutas.hasChildNodes() ){
+        ultimasRutas.removeChild(ultimasRutas.lastChild);
+    }
+
+    var h3=document.createElement("H3");
+    h3.textContent="Resultados";
+    var ordenarPor = document.createElement("SELECT");
+    ordenarPor.setAttribute("id", "orden");
+    ordenarPor.setAttribute("style", "float:right");
+    ordenarPor.setAttribute("onchange", "ordenarResultados()");
+
+    var opcion = document.createElement("option");
+    opcion.text = "Ordenar por...";
+    ordenarPor.add(opcion);
+
+    var opcion = document.createElement("option");
+    opcion.text = "Título Ascendente";
+    ordenarPor.add(opcion);
+
+    var opcion = document.createElement("option");
+    opcion.text = "Título Descendente";
+    ordenarPor.add(opcion);
+
+    var opcion = document.createElement("option");
+    opcion.text = "Fecha Ascendente";
+    ordenarPor.add(opcion);
+
+    var opcion = document.createElement("option");
+    opcion.text = "Fecha Descendente";
+    ordenarPor.add(opcion);
+
+    var opcion = document.createElement("option");
+    opcion.text = "Dificultad Ascendente";
+    ordenarPor.add(opcion);
+
+    var opcion = document.createElement("option");
+    opcion.text = "Dificultad Descendente";
+    ordenarPor.add(opcion);
+
+    var opcion = document.createElement("option");
+    opcion.text = "Distancia Ascendente";
+    ordenarPor.add(opcion);
+
+    var opcion = document.createElement("option");
+    opcion.text = "Distancia Descendente";
+    ordenarPor.add(opcion);
+
+    h3.appendChild(ordenarPor);
+    ultimasRutas.appendChild(h3);
+
+    if(arrayRutas.length==0){
+        var mensaje = document.createElement("P");
+        mensaje.textContent="No se han encontrado rutas con estos parámetros.";
+        h3.removeChild(h3.lastChild);
+        ultimasRutas.appendChild(mensaje);
+    }
+    else{
+        for(var i=0; i<arrayRutas.length; i++){
+
+            var article = document.createElement("ARTICLE");
+            var h4=document.createElement("H4");
+            var titulo=document.createElement("A");
+            titulo.setAttribute("href", "javascript:enlaceRuta("+arrayRutas[i].getId()+")");
+            titulo.textContent=arrayRutas[i].getNombre();
+            h4.appendChild(titulo);
+            article.appendChild(h4);
+
+            var figure =  document.createElement("FIGURE");
+            var imagen = document.createElement("IMG");
+            imagen.setAttribute("class", "flip1");
+            imagen.setAttribute("src", "fotos/"+arrayRutas[i].getArchivo());
+            imagen.setAttribute("alt", "Imagen de "+arrayRutas[i].getNombre());
+            figure.appendChild(imagen);
+            var figcaption = document.createElement("FIGCAPTION");
+            figcaption.setAttribute("class", "flip");
+            figcaption.innerHTML=arrayRutas[i].getDistancia()+" km <br/>"
+            for(var j=0; j<arrayRutas[i].getDificultad(); j++){
+                figcaption.innerHTML=figcaption.innerHTML+"★ ";
+            }
+            figcaption.innerHTML= figcaption.innerHTML+"<br/>"+arrayRutas[i].getNfotos()+" Fotos <br/>"+arrayRutas[i].getNcomentarios()+" Comentarios"
+            figure.appendChild(figcaption);
+            article.appendChild(figure);
+        
+            var recorrido = document.createElement("P");
+            recorrido.textContent=arrayRutas[i].getRecorrido();
+            article.appendChild(recorrido);
+            var descripcion = document.createElement("P");
+            descripcion.textContent=arrayRutas[i].getDescripcion();
+            article.appendChild(descripcion);
+            ultimasRutas.appendChild(article);
+            var br = document.createElement("BR");
+            ultimasRutas.appendChild(br);
+        }
+    }
+}
+
+function ordenarResultados(){
+
+var ordenar_por = function(field, reverse, primer){
+
+   var key = primer ? 
+       function(x) {return primer(x[field])} : 
+       function(x) {return x[field]};
+
+   reverse = !reverse ? 1 : -1;
+
+   return function (a, b) {
+       return a = key(a), b = key(b), reverse * ((a > b) - (b > a));
+     } 
+}
+
+
+    switch(document.getElementById("orden").selectedIndex) {
+    case 1:
+        arrayRutas.sort(ordenar_por('nombre', false, function(a){return a.toUpperCase()}));
+        muestraResultadoBusqueda();
+        break;
+    case 2:
+        arrayRutas.sort(ordenar_por('nombre', true, function(a){return a.toUpperCase()}));
+        muestraResultadoBusqueda();
+        break;
+    case 3:
+        arrayRutas.sort(ordenar_por('fecha', false, String));
+        muestraResultadoBusqueda();
+        break;
+    case 4:
+        arrayRutas.sort(ordenar_por('fecha', true, String));
+        muestraResultadoBusqueda();
+        break;
+    case 5:
+        arrayRutas.sort(ordenar_por('dificultad', false, parseInt));
+        muestraResultadoBusqueda();
+        break;
+    case 6:
+        arrayRutas.sort(ordenar_por('dificultad', true, parseInt));
+        muestraResultadoBusqueda();
+        break;
+    case 7:
+        arrayRutas.sort(ordenar_por('distancia', false, parseFloat));
+        muestraResultadoBusqueda();
+        break;
+    case 8:
+        arrayRutas.sort(ordenar_por('distancia', true, parseFloat));
+        muestraResultadoBusqueda();
+        break;
+    }
+
 }

@@ -346,7 +346,10 @@ nav{
 
 .slideshow{
 	position:relative;
+	z-index: 100;
+	transition: all 1s;
 }
+
 
 .rightarrow:hover a, .leftarrow:hover a{
 	color: #AFAFFF;
@@ -372,7 +375,21 @@ nav{
 	margin-right: 15%;
 }
 
-
+.darkClass
+{
+    background-color: black;
+    filter:alpha(opacity=50);
+    opacity: 0.5;
+    -moz-opacity:0.50;
+    z-index: 20;
+    height: 150%;
+    width: 100%;
+    background-repeat:no-repeat;
+    background-position:center;
+    position:absolute;
+    top: 0px;
+    left: 0px;
+}
 
 
 /*Resoluciones*/

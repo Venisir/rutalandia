@@ -61,22 +61,22 @@
 	    <h2>Búsqueda de rutas</h2>
 
 		<form method="post">
-			<input type="text" name="titulo" placeholder="Título" autofocus><br/><br/>
-			<input type="text" name="recorrido" placeholder="Recorrido"><br/><br/>
-			<input type="text" name="descripcion"placeholder="Descripción"><br/><br/>
-			Fecha <br /> desde: <br/><input type="date" name="fechaDesde" ><br/> hasta: <br/><input type="date" name="fechaHasta"><br/><br/>
-			Distancia <br /> desde <br><input required type="number" min="0" max="50" step="0.01" value="10" name="distanciaDesde" id="distancia" title="Introduce la distancia de la ruta." >Km <br/>hasta <br><input required type="number" min="0" max="50" step="0.01" value="10" name="distancia" id="distanciaHasta" title="Introduce la distancia de la ruta." >Km<br/><br/>
-			<input type="text" name="autor" placeholder="Autor"><br/><br/>
+			<input type="text" id="titulo" name="titulo" placeholder="Título" autofocus><br/><br/>
+			<input type="text" id="recorrido" name="recorrido" placeholder="Recorrido"><br/><br/>
+			<input type="text" id="descripcion" name="descripcion"placeholder="Descripción"><br/><br/>
+			Fecha <br /> desde: <br/><input type="date" id="fechaDesde" name="fechaDesde" ><br/> hasta: <br/><input type="date" id="fechaHasta" name="fechaHasta"><br/><br/>
+			Distancia <br /> desde <br><input required type="number" min="0" max="50" step="0.01" name="distanciaDesde" id="distancia" title="Introduce la distancia de la ruta." >Km <br/>hasta <br><input required type="number" min="0" max="50" step="0.01" name="distancia" id="distanciaHasta" title="Introduce la distancia de la ruta." >Km<br/><br/>
 
-			Dificultad: <br /><input required type="number" min="1" max="5" step="1" value="3" name="dificultad" id="dificultad" title="Introduce la dificultad.">  &#9733;<br/><br/>
+			Dificultad <br /> entre <br><input required type="number" min="0" max="5" step="1" name="dificultadInicial" id="dfi" title="Introduce la dificultad mínima de la ruta." > &#9733;<br/>y <br><input required type="number" min="0" max="5" step="1"  name="dificultadFinal" id="dff" title="Introduce la dificultad máxima de la ruta." > &#9733;<br/><br/>
 
+			<button type="button" onclick="buscaRutas()">Buscar</button>
 			<input type="submit">
 			  
 		</form>
 
 		
 		<section id="ultimasRutasBusqueda">
-
+			<!--
 		    <h3>Resultados</h3>
 
 		    <article>
@@ -171,7 +171,7 @@
 						</figcaption>
 					</figure>
 		    </article>
-
+			-->
 		</section>
 	</div>
 	<footer>		
