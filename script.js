@@ -72,6 +72,8 @@ function avisoRegistro(valor) {
 
     var divAviso = document.createElement("DIV");
     divAviso.setAttribute("id", "divAviso");
+    divAviso.setAttribute("style", "position: fixed; top: 50%; left: 50%; margin-top: -50px; margin-left: -50px; opacity: 1; background-color: #7F7F7F; border-style: solid; z-index: 99999999; padding-right: 20px; padding-left: 20px; padding-top: 10px; padding-bottom: 10px;");
+
 
     if(valor.localeCompare("correcto")==0){
         textoBoton = "Ir a Login";
@@ -199,8 +201,8 @@ function rellenar(){ // Se comprueba si hay soporte para Web Storage
     if(window.localStorage){
         var frm = document.getElementById("formLogin");
         if(localStorage.getItem("login")){
-            frm.login.value = localStorage.getItem("login");
-            frm.pass.value = localStorage.getItem("pass");
+            frm.usu.value = localStorage.getItem("login");
+            //frm.pwd.value = localStorage.getItem("pass");
         }
     }
 }
@@ -216,6 +218,8 @@ function avisoLogin(valor) {
 
     var divAviso = document.createElement("DIV");
     divAviso.setAttribute("id", "divAviso");
+    divAviso.setAttribute("style", "position: fixed; top: 50%; left: 50%; margin-top: -50px; margin-left: -50px; opacity: 1; background-color: #7F7F7F; border-style: solid; z-index: 99999999; padding-right: 20px; padding-left: 20px; padding-top: 10px; padding-bottom: 10px;");
+
 
     if(valor.localeCompare("correcto")==0){
         textoBoton = "Ir a Inicio";
@@ -273,10 +277,16 @@ function cerrarSesion(){
 
     var divAviso = document.createElement("DIV");
     divAviso.setAttribute("id", "divAviso");
+    divAviso.setAttribute("style", "position: fixed; top: 50%; left: 50%; margin-top: -50px; margin-left: -50px; opacity: 1; background-color: #7F7F7F; border-style: solid; z-index: 99999999; padding-right: 20px; padding-left: 20px; padding-top: 10px; padding-bottom: 10px;");
 
     if(sessionStorage.getItem("login")){
         textoBoton = "Volver";
         textoP = "Sesión terminada.";
+
+        sessionStorage.removeItem("login");
+        sessionStorage.removeItem("pass");
+
+
     }else{
         textoBoton = "Volver";
         textoP = "No puedes cerrar sesión.";
@@ -294,12 +304,19 @@ function cerrarSesion(){
     if(sessionStorage.getItem("login")){
         boton.setAttribute("onclick", "redireccionaIndex();");
     }else{
-        boton.setAttribute("onclick", "cerrarVentana();");
+        boton.setAttribute("onclick", "recargarPag();");
     }
 
-    divAviso.appendChild(boton);
-    divAviso.style = "position: fixed; top: 50%; left: 50%; margin-top: -50px; margin-left: -50px; opacity: 1; background-color: grey; border-style: solid; z-index: 999999; padding-right: 20px; padding-left: 20px; padding-top: 10px; padding-bottom: 10px;";
+    divAviso.appendChild(boton);    
+    divAviso.style = "position: fixed; top: 50%; left: 50%; margin-top: -50px; margin-left: -50px; opacity: 1; background-color: #7F7F7F; border-style: solid; z-index: 99999999; padding-right: 20px; padding-left: 20px; padding-top: 10px; padding-bottom: 10px;";
+
+    //document.getElementById("contenedor").appendChild(divAviso);
+    //document.getElementById('padre').insertBefore(nuevo_parrafo,segundo_p);
     document.body.appendChild(divAviso);
+}
+
+function recargarPag(){
+    document.location.href = document.location.href;
 }
 
 //Redirecciona si estas logueado.
@@ -415,6 +432,7 @@ function avisoNuevaRuta(valor) {
 
     var divAviso = document.createElement("DIV");
     divAviso.setAttribute("id", "divAviso");
+    divAviso.setAttribute("style", "position: fixed; top: 50%; left: 50%; margin-top: -50px; margin-left: -50px; opacity: 1; background-color: #7F7F7F; border-style: solid; z-index: 99999999; padding-right: 20px; padding-left: 20px; padding-top: 10px; padding-bottom: 10px;");
 
     if(valor.localeCompare("correcto")==0){
         textoBoton = "Ir a Index";
@@ -911,6 +929,43 @@ function enviarComentario(){
     return false;
 }
 
+function avisoComentario(valor) {
+
+    var textoBoton;
+    var textoP;
+
+    var divAviso = document.createElement("DIV");
+    divAviso.setAttribute("id", "divAviso");
+    divAviso.setAttribute("style", "position: fixed; top: 50%; left: 50%; margin-top: -50px; margin-left: -50px; opacity: 1; background-color: #7F7F7F; border-style: solid; z-index: 99999999; padding-right: 20px; padding-left: 20px; padding-top: 10px; padding-bottom: 10px;");
+
+    if(valor.localeCompare("correcto")==0){
+        textoBoton = "Cerrar";
+        textoP = "Comentario añadido correctamente.";
+    }else{
+        textoBoton = "Volver";
+        textoP = "Error añadiendo el comentario.";
+    }
+
+    var texto = document.createElement("P");
+    texto.textContent = textoP;
+
+    divAviso.appendChild(texto);
+
+    var boton = document.createElement("INPUT");
+    boton.setAttribute("type", "button");
+    boton.setAttribute("value", textoBoton);
+    
+    if(valor.localeCompare("correcto")==0){
+        boton.setAttribute("onclick", "cerrarVentana();");
+    }else{
+        boton.setAttribute("onclick", "cerrarVentana();");
+    }
+
+    divAviso.appendChild(boton);
+    //divAviso.style = "position: fixed; top: 50%; left: 50%; margin-top: -50px; margin-left: -50px; opacity: 1; background-color: grey; border-style: solid; z-index: 999999; padding-right: 20px; padding-left: 20px; padding-top: 10px; padding-bottom: 10px;";
+    document.body.appendChild(divAviso);
+}
+
 function agrandarSlideshow(){
     if(document.getElementById("closebutton")==undefined){
     var slideshow = document.getElementById("slideshow");
@@ -1210,40 +1265,4 @@ var ordenar_por = function(field, reverse, primer){
         break;
     }
 
-}
-
-function avisoComentario(valor) {
-
-    var textoBoton;
-    var textoP;
-
-    var divAviso = document.createElement("DIV");
-    divAviso.setAttribute("id", "divAviso");
-
-    if(valor.localeCompare("correcto")==0){
-        textoBoton = "Cerrar";
-        textoP = "Comentario añadido correctamente.";
-    }else{
-        textoBoton = "Volver";
-        textoP = "Error añadiendo el comentario.";
-    }
-
-    var texto = document.createElement("P");
-    texto.textContent = textoP;
-
-    divAviso.appendChild(texto);
-
-    var boton = document.createElement("INPUT");
-    boton.setAttribute("type", "button");
-    boton.setAttribute("value", textoBoton);
-    
-    if(valor.localeCompare("correcto")==0){
-        boton.setAttribute("onclick", "cerrarVentana();");
-    }else{
-        boton.setAttribute("onclick", "cerrarVentana();");
-    }
-
-    divAviso.appendChild(boton);
-    divAviso.style = "position: fixed; top: 50%; left: 50%; margin-top: -50px; margin-left: -50px; opacity: 1; background-color: grey; border-style: solid; z-index: 999999; padding-right: 20px; padding-left: 20px; padding-top: 10px; padding-bottom: 10px;";
-    document.body.appendChild(divAviso);
 }

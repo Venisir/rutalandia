@@ -1,4 +1,4 @@
-/* CSS para la practica 1 de Programación Hipermedia 2 */
+/* CSS para la practica 2 de Programación Hipermedia 2 */
 /* Alberto Salieto Gómez - Nima Ledgard Majidi         */
 
 body {
@@ -21,6 +21,22 @@ body {
 	opacity: 0.7;
 	position: fixed;
 } 
+
+.divAviso {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	margin-top: -50px;
+	margin-left: -50px;
+	opacity: 1;
+	background-color: #7F7F7F;
+	border-style: solid;
+	z-index: 999999;
+	padding-right: 20px;
+	padding-left: 20px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
 
 img {
 	max-width: 99%;
