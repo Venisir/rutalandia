@@ -2,19 +2,13 @@
 function ponerCabecera(){
     
     if(window.localStorage){
-        //alert("Va");
+        
         if(sessionStorage.getItem("login")){ // Si hay datos en loginStorage ...
-
             document.getElementById("navWrapper1").innerHTML = '<li><a href="index.html"><i class="icon-home"></i>Inicio</a></li><li><a href="rutas.html"><i class="icon-bicycle"></i> Rutas</a></li><li><a href="nueva_ruta.html"><i class="icon-list-add"></i>Nueva ruta</a></li><li><a href="javascript:cerrarSesion();"><i class="icon-logout"></i>Logout</a></li>';
-
             document.getElementById("navWrapper2").innerHTML = '<li><a href="index.html"><i class="icon-home"></i></a></li><li><a href="rutas.html"><i class="icon-bicycle"></i></a></li><li><a href="nueva_ruta.html"><i class="icon-list-add"></i></a></li><li><a href="javascript:cerrarSesion();"><i class="icon-logout"></i></a></li>';
-
         }else{
-
             document.getElementById("navWrapper1").innerHTML = '<li><a href="index.html"><i class="icon-home"></i>Inicio</a></li><li><a href="rutas.html"><i class="icon-bicycle"></i> Rutas</a></li><li><a href="registro.html"><i class="icon-plug"></i>Registro</a></li><li><a href="login.html"><i class="icon-login"></i>Login</a></li>';
-
             document.getElementById("navWrapper2").innerHTML = '<li><a href="index.html"><i class="icon-home"></i></a></li><li><a href="rutas.html"><i class="icon-bicycle"></i></a></li><li><a href="registro.html"><i class="icon-plug"></i></a></li><li><a href="login.html"><i class="icon-login"></i></a></li>';
-
         }
     }
 }
@@ -23,8 +17,7 @@ function ponerCabecera(){
 function enviarRegistro() {
     
     var xmlhttp;
-    if (window.XMLHttpRequest)
-    {// code for IE7+, Firefox, Chrome, Opera, Safari
+    if (window.XMLHttpRequest){
         xmlhttp=new XMLHttpRequest();
     }
     
@@ -40,14 +33,11 @@ function enviarRegistro() {
         xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
         xmlhttp.send("usu="+nombreUsuario+"&pwd1="+password1+"&nombre="+nombre+"&email="+email);
 
-        xmlhttp.onreadystatechange=function()
-        {
-        if(xmlhttp.readyState==4)
-            {   
+        xmlhttp.onreadystatechange=function(){
+            if(xmlhttp.readyState==4){   
                 var res = window.JSON.parse(xmlhttp.responseText);
 
                 if(res.resultado.localeCompare("ok")==0){
-
                     avisoRegistro("correcto");
                 }else{
                     avisoRegistro("incorrecto");
@@ -73,9 +63,9 @@ function avisoRegistro(valor) {
 */
     var divAviso = document.createElement("DIV");
     divAviso.setAttribute("id", "divAviso");
-    divAviso.setAttribute("style", "position: fixed; top: 50%; left: 50%; margin-top: -50px; margin-left: -50px; opacity: 1; background-color: #7F7F7F; border-style: solid; z-index: 99999999; padding-right: 20px; padding-left: 20px; padding-top: 10px; padding-bottom: 10px;");
-
-
+    divAviso.setAttribute("align", "center");
+    divAviso.setAttribute("style", "position: fixed; top: 50%; left: 50%; margin-top: -50px; margin-left: -80px; opacity: 1; background-color: #7F7F7F; border-style: solid; z-index: 99999999; padding-right: 20px; padding-left: 20px; padding-top: 10px; padding-bottom: 10px;");
+   
     if(valor.localeCompare("correcto")==0){
         textoBoton = "Ir a Login";
         textoP = "Registro completado.";
@@ -100,30 +90,33 @@ function avisoRegistro(valor) {
     }
 
     divAviso.appendChild(boton);
-    divAviso.style = "position: fixed; top: 50%; left: 50%; margin-top: -50px; margin-left: -50px; opacity: 1; background-color: grey; border-style: solid; z-index: 999999; padding-right: 20px; padding-left: 20px; padding-top: 10px; padding-bottom: 10px;";
+    
     document.body.appendChild(divAviso);
+
+    var ancho = divAviso.offsetWidth;
+    var alto = divAviso.offsetHeight;
+
+    var an = "-"+(ancho/2)+"px";
+    var al = "-"+(alto/2)+"px";
+
+    document.getElementById("divAviso").style.marginTop = al;
+    document.getElementById("divAviso").style.marginLeft = an;
 
     fadeIn(document.getElementById("divAviso"));
 }
 
 function redireccionaIndex(){
     location.href="/rutalandia/index.html";
-    //return false;
 }
 
 function redireccionaLogin(){
     location.href="/rutalandia/login.html";
-    //return false;
 }
 
 function cerrarVentana(){
     document.getElementById("contenedor").style.visibility = "hidden";
-    //document.getElementById("divAviso").style.visibility = "hidden";
-
 
     fadeOut(document.getElementById("divAviso"));
-
-    //return false;
 }
 
 //Envia el logueo al servidor.
@@ -131,8 +124,7 @@ function enviarLogin() {
     
     var xmlhttp;
 
-    if (window.XMLHttpRequest)
-    {// code for IE7+, Firefox, Chrome, Opera, Safari
+    if (window.XMLHttpRequest){
         xmlhttp=new XMLHttpRequest();
     }
     
@@ -143,10 +135,8 @@ function enviarLogin() {
     xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
     xmlhttp.send("usu="+nombreUsuario+"&pwd="+password1);
 
-    xmlhttp.onreadystatechange=function()
-    {
-        if(xmlhttp.readyState==4)
-        {
+    xmlhttp.onreadystatechange=function(){
+        if(xmlhttp.readyState==4){
             var res = window.JSON.parse(xmlhttp.responseText);
 
             if(res.resultado.localeCompare("ok")==0){
@@ -175,20 +165,24 @@ function comprobarDispLogin() {
     
     var xmlhttp;
 
-    if (window.XMLHttpRequest)
-    {// code for IE7+, Firefox, Chrome, Opera, Safari
+    if (window.XMLHttpRequest){
         xmlhttp=new XMLHttpRequest();
     }
+
+    var nombreUsuario = document.getElementById("usu").value;
     
-    xmlhttp.open("GET","rest/login/{LOGIN}",true);
+    //alert(nombreUsuario);
+
+    xmlhttp.open("GET","rest/login/"+nombreUsuario,true);
     xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
     xmlhttp.send();
 
-    xmlhttp.onreadystatechange=function()
-    {
+    xmlhttp.onreadystatechange=function(){
         if(xmlhttp.readyState==4)
         {
             var res = window.JSON.parse(xmlhttp.responseText);
+
+            //alert(res);
 
             if(res.resultado.localeCompare("ok")==0){
                 if(res.disponible.localeCompare("true")==0){
@@ -204,12 +198,11 @@ function comprobarDispLogin() {
 }
 
 //Si se ha marcado la opcion "recordar", autorellena los campos.
-function rellenar(){ // Se comprueba si hay soporte para Web Storage
+function rellenar(){
     if(window.localStorage){
         var frm = document.getElementById("formLogin");
         if(localStorage.getItem("login")){
             frm.usu.value = localStorage.getItem("login");
-            //frm.pwd.value = localStorage.getItem("pass");
         }
     }
 }
@@ -225,7 +218,9 @@ function avisoLogin(valor) {
 */
     var divAviso = document.createElement("DIV");
     divAviso.setAttribute("id", "divAviso");
-    divAviso.setAttribute("style", "position: fixed; top: 50%; left: 50%; margin-top: -50px; margin-left: -50px; opacity: 1; background-color: #7F7F7F; border-style: solid; z-index: 99999999; padding-right: 20px; padding-left: 20px; padding-top: 10px; padding-bottom: 10px;");
+    divAviso.setAttribute("align", "center");
+
+    divAviso.setAttribute("style", "position: fixed; top: 50%; left: 50%; margin-top: -0px; margin-left: -0px; opacity: 1; background-color: #7F7F7F; border-style: solid; z-index: 99999999; padding-right: 20px; padding-left: 20px; padding-top: 10px; padding-bottom: 10px;");
 
 
     if(valor.localeCompare("correcto")==0){
@@ -252,8 +247,17 @@ function avisoLogin(valor) {
     }
 
     divAviso.appendChild(boton);
-    divAviso.style = "position: fixed; top: 50%; left: 50%; margin-top: -50px; margin-left: -50px; opacity: 1; background-color: grey; border-style: solid; z-index: 999999; padding-right: 20px; padding-left: 20px; padding-top: 10px; padding-bottom: 10px;";
+   
     document.body.appendChild(divAviso);
+
+    var ancho = divAviso.offsetWidth;
+    var alto = divAviso.offsetHeight;
+
+    var an = "-"+(ancho/2)+"px";
+    var al = "-"+(alto/2)+"px";
+
+    document.getElementById("divAviso").style.marginTop = al;
+    document.getElementById("divAviso").style.marginLeft = an;
 
     fadeIn(document.getElementById("divAviso"));
 }
@@ -286,7 +290,8 @@ function cerrarSesion(){
 */
     var divAviso = document.createElement("DIV");
     divAviso.setAttribute("id", "divAviso");
-    divAviso.setAttribute("style", "position: fixed; top: 50%; left: 50%; margin-top: -50px; margin-left: -50px; opacity: 0; background-color: #7F7F7F; border-style: solid; z-index: 99999999; padding-right: 20px; padding-left: 20px; padding-top: 10px; padding-bottom: 10px; transition: opacity .25s ease-in-out; -moz-transition: opacity .25s ease-in-out; -webkit-transition: opacity .25s ease-in-out; ");
+    divAviso.setAttribute("align", "center");
+    divAviso.setAttribute("style", "position: fixed; top: 50%; left: 50%; margin-top: -50px; margin-left: -80px; opacity: 0; background-color: #7F7F7F; border-style: solid; z-index: 99999999; padding-right: 20px; padding-left: 20px; padding-top: 10px; padding-bottom: 10px; transition: opacity .25s ease-in-out; -moz-transition: opacity .25s ease-in-out; -webkit-transition: opacity .25s ease-in-out; ");
 
     if(sessionStorage.getItem("login")){
         textoBoton = "Volver";
@@ -317,14 +322,19 @@ function cerrarSesion(){
     }
 
     divAviso.appendChild(boton);    
-    divAviso.style = "position: fixed; top: 50%; left: 50%; margin-top: -50px; margin-left: -50px; opacity: 0; background-color: #7F7F7F; border-style: solid; z-index: 99999999; padding-right: 20px; padding-left: 20px; padding-top: 10px; padding-bottom: 10px;";
 
-    //document.getElementById("contenedor").appendChild(divAviso);
-    //document.getElementById('padre').insertBefore(nuevo_parrafo,segundo_p);
     document.body.appendChild(divAviso);
 
+    var ancho = divAviso.offsetWidth;
+    var alto = divAviso.offsetHeight;
+
+    var an = "-"+(ancho/2)+"px";
+    var al = "-"+(alto/2)+"px";
+
+    document.getElementById("divAviso").style.marginTop = al;
+    document.getElementById("divAviso").style.marginLeft = an;
+
     fadeIn(document.getElementById("divAviso"));
-    //document.getElementById("divAviso").style.opacity = "0";
 }
 
 function fadeOut(element) {
@@ -476,7 +486,8 @@ function avisoNuevaRuta(valor) {
 
     var divAviso = document.createElement("DIV");
     divAviso.setAttribute("id", "divAviso");
-    divAviso.setAttribute("style", "position: fixed; top: 50%; left: 50%; margin-top: -50px; margin-left: -50px; opacity: 1; background-color: #7F7F7F; border-style: solid; z-index: 99999999; padding-right: 20px; padding-left: 20px; padding-top: 10px; padding-bottom: 10px;");
+    divAviso.setAttribute("align", "center");
+    divAviso.setAttribute("style", "position: fixed; top: 50%; left: 50%; margin-top: -50px; margin-left: -80px; opacity: 1; background-color: #7F7F7F; border-style: solid; z-index: 99999999; padding-right: 20px; padding-left: 20px; padding-top: 10px; padding-bottom: 10px;");
 
     if(valor.localeCompare("correcto")==0){
         textoBoton = "Ir a Index";
@@ -515,8 +526,17 @@ function avisoNuevaRuta(valor) {
     }
 
     divAviso.appendChild(boton);
-    divAviso.style = "position: fixed; top: 50%; left: 50%; margin-top: -50px; margin-left: -50px; opacity: 1; background-color: grey; border-style: solid; z-index: 999999; padding-right: 20px; padding-left: 20px; padding-top: 10px; padding-bottom: 10px;";
+    
     document.body.appendChild(divAviso);
+
+    var ancho = divAviso.offsetWidth;
+    var alto = divAviso.offsetHeight;
+
+    var an = "-"+(ancho/2)+"px";
+    var al = "-"+(alto/2)+"px";
+
+    document.getElementById("divAviso").style.marginTop = al;
+    document.getElementById("divAviso").style.marginLeft = an;
 
     fadeIn(document.getElementById("divAviso"));
 }
@@ -525,13 +545,26 @@ function avisoNuevaRuta(valor) {
 function comprobarFormularioComentarios(){
         
     if(window.localStorage){
-        //alert("Va");
-        if(sessionStorage.getItem("login")){ // Si hay datos en loginStorage ...
+
+        if(sessionStorage.getItem("login")){
             
+            var xmlhttp;
+            if (window.XMLHttpRequest){
+                xmlhttp=new XMLHttpRequest();
+            }
+            
+            xmlhttp.open("POST","http://localhost/rutalandia/comentario.html",true);
+            xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+            xmlhttp.send(null);
+
+            xmlhttp.onreadystatechange=function(){
+                if(xmlhttp.readyState==4){   
+                    var res = window.JSON.parse(xmlhttp.responseText);
+                    document.getElementById("contenidoFormComentarios").innerHTML = res;
+                }
+            }
         }else{
-
             document.getElementById("contenidoFormComentarios").innerHTML = "Necesitas estar logueado para comentar."
-
         }
     }
 }
@@ -982,14 +1015,15 @@ function avisoComentario(valor) {
 
     var divAviso = document.createElement("DIV");
     divAviso.setAttribute("id", "divAviso");
-    divAviso.setAttribute("style", "position: fixed; top: 50%; left: 50%; margin-top: -50px; margin-left: -50px; opacity: 0; background-color: #7F7F7F; border-style: solid; z-index: 99999999; padding-right: 20px; padding-left: 20px; padding-top: 10px; padding-bottom: 10px;");
+    divAviso.setAttribute("align", "center");
+    divAviso.setAttribute("style", "position: fixed; top: 50%; left: 50%; margin-top: -50px; margin-left: -80px; opacity: 0; background-color: #7F7F7F; border-style: solid; z-index: 99999999; padding-right: 20px; padding-left: 20px; padding-top: 10px; padding-bottom: 10px;");
 
     if(valor.localeCompare("correcto")==0){
         textoBoton = "Cerrar";
-        textoP = "Comentario añadido correctamente.";
+        textoP = "Comentario añadido.";
     }else{
         textoBoton = "Volver";
-        textoP = "Error añadiendo el comentario.";
+        textoP = "Error comentando.";
     }
 
     var texto = document.createElement("P");
@@ -1008,8 +1042,17 @@ function avisoComentario(valor) {
     }
 
     divAviso.appendChild(boton);
-    //divAviso.style = "position: fixed; top: 50%; left: 50%; margin-top: -50px; margin-left: -50px; opacity: 1; background-color: grey; border-style: solid; z-index: 999999; padding-right: 20px; padding-left: 20px; padding-top: 10px; padding-bottom: 10px;";
+    
     document.body.appendChild(divAviso);
+
+    var ancho = divAviso.offsetWidth;
+    var alto = divAviso.offsetHeight;
+
+    var an = "-"+(ancho/2)+"px";
+    var al = "-"+(alto/2)+"px";
+
+    document.getElementById("divAviso").style.marginTop = al;
+    document.getElementById("divAviso").style.marginLeft = an;
 
     fadeIn(document.getElementById("divAviso"));
 }
@@ -1017,7 +1060,7 @@ function avisoComentario(valor) {
 function agrandarSlideshow(){
     if(document.getElementById("closebutton")==undefined){
     var slideshow = document.getElementById("slideshow");
-    slideshow.setAttribute("style", "position:absolute; left:10%; top:15%; min-width:80%;");
+    slideshow.setAttribute("style", "position:fixed; left:10%; top:15%; min-width:80%;");
     var closebutton = document.createElement("BUTTON");
     closebutton.setAttribute("id", "closebutton");
     closebutton.setAttribute("onclick", "cerrarSlideshow()");

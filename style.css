@@ -27,7 +27,7 @@ body {
 	top: 50%;
 	left: 50%;
 	margin-top: -50px;
-	margin-left: -50px;
+	margin-left: -80px;
 	opacity: 1;
 	background-color: #7F7F7F;
 	border-style: solid;
@@ -402,11 +402,11 @@ nav{
     opacity: 0.5;
     -moz-opacity:0.50;
     z-index: 20;
-    height: 150%;
+    height: 100%;
     width: 100%;
     background-repeat:no-repeat;
     background-position:center;
-    position:absolute;
+    position:fixed;
     top: 0px;
     left: 0px;
 }
