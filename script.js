@@ -553,16 +553,22 @@ function comprobarFormularioComentarios(){
                 xmlhttp=new XMLHttpRequest();
             }
             
-            xmlhttp.open("POST","http://localhost/rutalandia/comentario.html",true);
-            xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-            xmlhttp.send(null);
+            xmlhttp.open("GET","comentario.html",true);
 
-            xmlhttp.onreadystatechange=function(){
-                if(xmlhttp.readyState==4){   
-                    var res = window.JSON.parse(xmlhttp.responseText);
-                    document.getElementById("contenidoFormComentarios").innerHTML = res;
-                }
+
+            xmlhttp.onload=function(){
+                //if(xmlhttp.readyState==4){   
+                    alert(xmlhttp.responseText);
+                    //var res = window.JSON.parse(xmlhttp.responseText);
+                    alert(xmlhttp.responseText);
+                    document.getElementById("contenidoFormComentarios").innerHTML = xmlhttp.responseText;
+                //}
             }
+
+
+            xmlhttp.send();
+
+
         }else{
             document.getElementById("contenidoFormComentarios").innerHTML = "Necesitas estar logueado para comentar."
         }
